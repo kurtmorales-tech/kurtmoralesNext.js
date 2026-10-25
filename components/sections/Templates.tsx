@@ -1,0 +1,86 @@
+import Image from 'next/image';
+import type { SiteTemplate } from '@/lib/data';
+
+export function Templates({ items }: { items: SiteTemplate[] }) {
+  return (
+    <section id="templates" className="py-32 km-surface-soft">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-2xl mb-24 reveal-left">
+          <span className="font-mono km-text-soft font-bold text-[10px] tracking-widest uppercase block mb-6">
+            $ templates
+          </span>
+          <h2 className="text-4xl md:text-6xl font-display font-medium leading-tight text-brand text-pretty">
+            Ready-to-use website templates.
+          </h2>
+          <p className="mt-6 km-text-muted leading-relaxed">
+            Professionally designed templates to kickstart your next project. Dynamic previews,
+            clean code, and full documentation included.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((template, index) => (
+            <div
+              key={template.id}
+              className="reveal group relative km-panel overflow-hidden card-lift"
+              style={{ transitionDelay: `${index * 80}ms` }}
+            >
+              {template.featured && (
+                <span className="absolute top-4 right-4 z-10 font-mono text-[9px] font-black uppercase tracking-widest bg-brand text-white px-3 py-1.5">
+                  Featured
+                </span>
+              )}
+              <div className="aspect-[4/3] overflow-hidden bg-[var(--km-surface-muted)]">
+                <Image
+                  src={template.thumbnail}
+                  alt={template.thumbnailAlt}
+                  width={600}
+                  height={450}
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-[9px] font-black uppercase tracking-widest km-text-muted bg-[var(--km-surface-muted)] px-3 py-1.5">
+                    {template.tech}
+                  </span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-brand/70">
+                    {template.price === 0 ? 'Free' : `$${template.price}`}
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold mb-3 km-text-strong tracking-tight group-hover:text-brand transition-colors duration-300">
+                  {template.title}
+                </h3>
+                <p className="km-text-muted text-sm leading-relaxed mb-6 line-clamp-3">
+                  {template.description}
+                </p>
+                <div className="flex items-center gap-4">
+                  {template.demoUrl && (
+                    <a
+                      href={template.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[10px] font-black uppercase tracking-widest text-brand hover:text-brand-dark transition-colors duration-300 flex items-center gap-2"
+                    >
+                      Live Demo <span aria-hidden>→</span>
+                    </a>
+                  )}
+                  {template.sourceUrl && (
+                    <a
+                      href={template.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-mono text-[10px] font-black uppercase tracking-widest km-text-soft hover:text-brand transition-colors duration-300"
+                    >
+                      Source
+                    </a>
+                  )}
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
