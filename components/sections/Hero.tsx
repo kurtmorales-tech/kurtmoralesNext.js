@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { heroCapabilities } from '@/lib/data';
+import { heroCapabilities, site } from '@/lib/data';
 
 export function Hero() {
   return (
@@ -16,7 +16,7 @@ export function Hero() {
           </div>
           <h1
             className="reveal text-5xl md:text-[5.5rem] font-display font-medium leading-[0.92] tracking-tight mb-10"
-            style={{ transitionDelay: '100ms' }}
+            style={{ animationDelay: '100ms' }}
           >
             <span className="text-brand">Turn local searches</span>
             <span className="km-text-strong"> into tables.</span>
@@ -26,12 +26,12 @@ export function Hero() {
           </h1>
           <p
             className="reveal text-lg md:text-xl km-text-muted mb-12 max-w-xl leading-relaxed"
-            style={{ transitionDelay: '200ms' }}
+            style={{ animationDelay: '200ms' }}
           >
             KM Web Design is a small Las Vegas team creating custom restaurant websites that make
             menus easier to browse, reservations easier to book, and your business easier to find.
           </p>
-          <div className="reveal flex flex-col gap-6" style={{ transitionDelay: '300ms' }}>
+          <div className="reveal flex flex-col gap-6" style={{ animationDelay: '300ms' }}>
             <div className="flex flex-wrap gap-4">
               <Link href="/contact" className="km-button km-button-primary">
                 Book a discovery call
@@ -41,7 +41,7 @@ export function Hero() {
               </a>
             </div>
             <p className="font-mono text-[10px] font-black uppercase tracking-[0.16em] km-text-soft">
-              Tell us about your restaurant — we reply within one business day
+              Websites from ${site.startingPrice} — we reply within one business day
             </p>
           </div>
         </div>

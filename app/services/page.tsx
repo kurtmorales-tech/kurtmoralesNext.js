@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { Packages } from '@/components/sections/Packages';
 import { Process } from '@/components/sections/Process';
 import { Services } from '@/components/sections/Services';
+import { site } from '@/lib/data';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Services',
   description:
-    'Restaurant websites, menus & integrations, and local growth services from KM Web Design in Las Vegas.',
-};
+    'Restaurant websites, menus & integrations, and local growth services from KM Web Design in Las Vegas. Projects start at $299.',
+  path: '/services',
+});
 
 export default function ServicesPage() {
   return (
@@ -35,6 +38,9 @@ export default function ServicesPage() {
               See the work
             </Link>
           </div>
+          <p className="mt-6 font-mono text-[10px] font-black uppercase tracking-[0.16em] km-text-muted">
+            Projects start at ${site.startingPrice}
+          </p>
         </div>
       </section>
       <Services />

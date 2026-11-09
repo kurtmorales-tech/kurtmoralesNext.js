@@ -12,11 +12,22 @@ is local: there is no backend and the site makes no API calls.
 ## Run it
 
 ```bash
-npm install     # or: bun install
-npm run dev     # http://localhost:3000
-npm run build   # production build
-npm run start   # serve the production build
+npm install      # or: bun install
+npm run dev      # http://localhost:3000
+npm run build    # static export → ./out
+npm run preview  # serve ./out locally in workerd
+npm run deploy   # build + deploy to Cloudflare Workers
 ```
+
+## Deployment
+
+The site is a fully static export (`output: 'export'` in
+`next.config.ts`) served by Cloudflare Workers static assets, configured
+in `wrangler.jsonc`. `npm run deploy` builds and uploads `./out`, then
+attaches the `kmwebdesign.xyz` and `www.kmwebdesign.xyz` custom domains.
+
+There is no server runtime: every route is prerendered HTML. `app/sitemap.ts`
+and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt` at build time.
 
 ## Routes
 
@@ -37,13 +48,13 @@ components/
   Header.tsx          Sticky nav, More menu, light/dark theme toggle
   Footer.tsx
   SiteAssistant.tsx   Corner "Plan your project" card
-  Reveal.tsx          Scroll-reveal activator (IntersectionObserver)
   sections/           One component per homepage section
 lib/
   data.ts             ALL site content lives here
+  seo.ts              Per-page canonical + social metadata helper
 public/
   portfolio/          Restaurant concept artwork (.webp)
-  template-previews/  Template thumbnails (.png)
+  template-previews/  Template thumbnails (.webp)
 ```
 
 ## Editing content

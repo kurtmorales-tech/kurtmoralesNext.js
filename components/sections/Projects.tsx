@@ -22,7 +22,7 @@ export function Projects({ items, heading = true }: { items: Project[]; heading?
               target="_blank"
               rel="noreferrer"
               className="reveal group relative km-panel p-10 card-lift live-card block overflow-hidden"
-              style={{ transitionDelay: `${index * 80}ms` }}
+              style={{ animationDelay: `${index * 80}ms` }}
             >
               <span className="absolute top-6 right-6 font-mono text-[10px] font-black km-text-soft tabular-nums group-hover:text-brand/60 transition-colors duration-300">
                 {String(index + 1).padStart(2, '0')}

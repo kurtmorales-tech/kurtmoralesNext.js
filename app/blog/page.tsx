@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { formatDate, posts } from '@/lib/data';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Restaurant Website Blog',
   description:
     'Practical guidance on restaurant websites, online menus, local SEO, ordering integrations, speed, and accessible digital experiences.',
-};
+  path: '/blog',
+});
 
 export default function BlogPage() {
   const latestPost = posts[0];
@@ -66,7 +68,7 @@ export default function BlogPage() {
               <article
                 key={post.slug}
                 className="reveal group km-panel live-card p-8 card-lift flex flex-col"
-                style={{ transitionDelay: `${(index % 3) * 80}ms` }}
+                style={{ animationDelay: `${(index % 3) * 80}ms` }}
               >
                 <div className="mb-4 flex flex-wrap items-center gap-3 font-mono text-[9px] font-black uppercase tracking-[0.18em] km-text-soft">
                   <time dateTime={post.date}>{formatDate(post.date)}</time>

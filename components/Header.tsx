@@ -154,7 +154,7 @@ export function Header() {
             aria-label="KM Web Design home"
           >
             <span className="inline-flex h-3 w-3 rounded-full bg-brand/80 shadow-[0_0_0_6px_rgba(244,129,32,0.12)]" />
-            KM
+            {'KM '}
             <span className="text-brand transition-colors duration-300 group-hover:text-brand-dark">
               Web Design
             </span>

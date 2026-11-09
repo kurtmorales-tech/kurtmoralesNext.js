@@ -1,4 +1,5 @@
-import { packages } from '@/lib/data';
+import Link from 'next/link';
+import { packages, site } from '@/lib/data';
 
 export function Packages() {
   return (
@@ -13,8 +14,9 @@ export function Packages() {
             Flexible starting points for growing businesses.
           </h2>
           <p className="mt-6 km-text-muted leading-relaxed">
-            Final pricing depends on scope, content, integrations, and timeline. These tracks make
-            it easier to choose the right starting point.
+            Projects start at ${site.startingPrice}. Final pricing depends on scope, content,
+            integrations, and timeline — these tracks make it easier to choose the right starting
+            point.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -23,23 +25,39 @@ export function Packages() {
               key={item.title}
               className={`reveal relative p-8 border card-lift ${
                 item.featured
-                  ? 'bg-brand text-white border-brand'
+                  ? 'bg-brand text-[#13110f] border-brand'
                   : 'km-panel km-border-soft'
               }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {item.featured && (
-                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-white text-brand px-3 py-1.5">
+                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-[#13110f] text-white px-3 py-1.5">
                   Popular
                 </span>
               )}
               <h3
-                className={`text-2xl font-bold mb-4 ${item.featured ? 'text-white' : 'km-text-strong'}`}
+                className={`text-2xl font-bold mb-3 ${item.featured ? 'text-[#13110f]' : 'km-text-strong'}`}
               >
                 {item.title}
               </h3>
+              <div className="mb-6">
+                <p
+                  className={`text-[9px] font-black uppercase tracking-[0.2em] ${
+                    item.featured ? 'text-[#13110f]/75' : 'km-text-soft'
+                  }`}
+                >
+                  {item.price ? 'Starting at' : 'Pricing'}
+                </p>
+                <p
+                  className={`mt-1 font-display font-medium leading-none ${
+                    item.price ? 'text-3xl' : 'text-2xl'
+                  } ${item.featured ? 'text-[#13110f]' : 'km-text-strong'}`}
+                >
+                  {item.price ? `$${item.price}` : 'Custom quote'}
+                </p>
+              </div>
               <p
-                className={`text-sm leading-relaxed mb-8 ${item.featured ? 'text-white/80' : 'km-text-muted'}`}
+                className={`text-sm leading-relaxed mb-8 ${item.featured ? 'text-[#13110f]/80' : 'km-text-muted'}`}
               >
                 {item.desc}
               </p>
@@ -47,9 +65,9 @@ export function Packages() {
                 {item.items.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-sm font-medium">
                     <span
-                      className={`mt-1 h-1.5 w-1.5 flex-shrink-0 ${item.featured ? 'bg-white' : 'bg-brand'}`}
+                      className={`mt-1 h-1.5 w-1.5 flex-shrink-0 ${item.featured ? 'bg-[#13110f]' : 'bg-brand'}`}
                     />
-                    <span className={item.featured ? 'text-white/90' : 'km-text-muted'}>
+                    <span className={item.featured ? 'text-[#13110f]/90' : 'km-text-muted'}>
                       {feature}
                     </span>
                   </li>
@@ -58,6 +76,13 @@ export function Packages() {
             </article>
           ))}
         </div>
+        <p className="mt-12 text-sm km-text-muted">
+          Not sure which track fits?{' '}
+          <Link href="/contact" className="font-semibold text-brand hover:underline">
+            Tell us about the project
+          </Link>{' '}
+          and we&apos;ll recommend the right starting point.
+        </p>
       </div>
     </section>
   );

@@ -17,7 +17,7 @@ export function Services() {
             <article
               key={service.title}
               className="reveal group relative km-panel p-10 card-lift live-card overflow-hidden"
-              style={{ transitionDelay: `${index * 120}ms` }}
+              style={{ animationDelay: `${index * 120}ms` }}
             >
               <span className="absolute -top-4 -right-2 text-[8rem] font-mono font-bold text-brand/5 leading-none select-none group-hover:text-brand/10 transition-colors duration-500">
                 {service.num}

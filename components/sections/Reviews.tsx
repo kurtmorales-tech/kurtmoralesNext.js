@@ -12,8 +12,8 @@ export function Reviews() {
             Built for clear handoff, faster launches, and measurable business value.
           </h2>
           <p className="km-text-muted text-lg leading-relaxed mt-6">
-            Real testimonials can be added as projects go live. For now, these cards highlight the
-            outcomes and working experience clients can expect.
+            Every project is built around clear handoff, faster launches, and measurable business
+            value.
           </p>
         </div>
         <div className="reviews-shell reveal relative overflow-hidden">

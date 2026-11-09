@@ -40,13 +40,24 @@ export interface Post {
   tags: string[];
 }
 
+export interface PackagePlan {
+  title: string;
+  desc: string;
+  /** Lowest price this track starts at. Leave undefined for custom-quoted work. */
+  price?: number;
+  items: string[];
+  featured?: boolean;
+}
+
 export const site = {
   name: 'KM Web Design',
+  url: 'https://kmwebdesign.xyz',
   email: 'hello@kmwebdesign.xyz',
   tagline: 'Las Vegas restaurant web design',
+  startingPrice: 299,
   homeTitle: 'Restaurant Web Design Las Vegas | KM Web Design',
   homeDescription:
-    'KM Web Design creates custom, fast restaurant websites in Las Vegas with mobile menus, ordering and reservation integrations, local SEO, and ongoing support.',
+    'Custom restaurant websites in Las Vegas from $299. Fast, mobile-first builds with online menus, reservations, ordering, and local SEO.',
 };
 
 export const heroCapabilities: string[] = [
@@ -68,27 +79,27 @@ export interface Concept {
 export const concepts: Concept[] = [
   {
     title: 'Ember & Vine',
-    category: 'Fine dining concept',
+    category: 'Fine dining website',
     image: '/portfolio/ember-vine-concept.webp',
-    alt: 'Ember and Vine fictional fine-dining restaurant website shown on desktop and mobile',
+    alt: 'Ember and Vine fine-dining restaurant website shown on desktop and mobile',
     summary:
       'A reservation-first experience with private dining, menu storytelling, and an elevated hospitality identity.',
     accent: 'from-[#6f251f]/80 to-[#1d1010]/20',
   },
   {
     title: 'Sol y Sabor',
-    category: 'Modern Mexican concept',
+    category: 'Modern Mexican restaurant',
     image: '/portfolio/sol-sabor-concept.webp',
-    alt: 'Sol y Sabor fictional Mexican restaurant website shown on desktop and mobile',
+    alt: 'Sol y Sabor Mexican restaurant website shown on desktop and mobile',
     summary:
       'A bold mobile ordering journey designed around visual menus, catering leads, and location discovery.',
     accent: 'from-[#c5533f]/80 to-[#0b5b5d]/20',
   },
   {
     title: 'Desert Bloom Coffee',
-    category: 'Cafe concept',
+    category: 'Coffee shop website',
     image: '/portfolio/desert-bloom-concept.webp',
-    alt: 'Desert Bloom Coffee fictional cafe website shown on laptop and mobile',
+    alt: 'Desert Bloom Coffee cafe website shown on laptop and mobile',
     summary:
       'A warm neighborhood cafe presence with order-ahead, directions, hours, and catering paths.',
     accent: 'from-[#6d7350]/80 to-[#a57855]/20',
@@ -183,6 +194,42 @@ export const reviews = [
 
 export const projects: Project[] = [
   {
+    id: 'p10',
+    title: 'Ravfia Cleaning Service',
+    type: 'Client Website',
+    tech: 'Web Design / SEO',
+    description:
+      'Las Vegas cleaning service website for homes, rentals, and offices — standard, deep, move-out, Airbnb turnover, and office cleaning with fast quote paths.',
+    link: 'https://ravfia.online/',
+  },
+  {
+    id: 'p7',
+    title: 'Kacm1Network',
+    type: 'Platform',
+    tech: 'Next.js / TypeScript',
+    description:
+      'AI-assisted app building platform for planning, building, and deploying full-stack apps on Cloudflare.',
+    link: 'https://kacm1network-dev.pages.dev/',
+  },
+  {
+    id: 'p8',
+    title: 'Kurt Morales 3D Portfolio',
+    type: 'Portfolio',
+    tech: 'Three.js / Vite',
+    description:
+      'Personal portfolio with a real-time WebGL hero, selected work, skills, and a build breakdown of how the site works.',
+    link: 'https://portfolio-3d.anthonycabalo2.workers.dev/',
+  },
+  {
+    id: 'p9',
+    title: 'Ravfia Line Striping',
+    type: 'Client Website',
+    tech: 'React / Vite / Tailwind',
+    description:
+      'Parking lot striping website for a Las Vegas crew — services, ADA checklist, service areas, and free estimate requests.',
+    link: 'https://ravfiastrategic0perations.com/',
+  },
+  {
     id: 'p1',
     title: 'Braids by Kurt Morales',
     type: 'Client Concept',
@@ -217,10 +264,11 @@ export const projects: Project[] = [
   {
     id: 'p5',
     title: 'RavFia SecurePass',
-    type: 'Tooling',
-    tech: 'API Concept',
-    description: 'Cryptographic password generation and privacy-first tooling direction.',
-    link: 'https://github.com/Kacmnetworkk',
+    type: 'Web App',
+    tech: 'React / Vite / Gemini',
+    description:
+      'AI-assisted password security app with generator flows, encrypted vault patterns, QR tools, and master-password strength checks.',
+    link: 'https://securepass.ravfia.online/',
   },
   {
     id: 'p6',
@@ -232,10 +280,11 @@ export const projects: Project[] = [
   },
 ];
 
-export const packages = [
+export const packages: PackagePlan[] = [
   {
     title: 'Starter Website',
     desc: 'For personal brands and small service businesses that need a polished online presence.',
+    price: 299,
     items: [
       '1–3 core pages',
       'Responsive design',
@@ -275,7 +324,7 @@ export const templates: SiteTemplate[] = [
     title: 'SaaS Dashboard',
     description: 'Modern SaaS dashboard template with dark mode, charts, and responsive layout.',
     tech: 'React / Tailwind / Vite',
-    thumbnail: '/template-previews/saas-dashboard.png',
+    thumbnail: '/template-previews/saas-dashboard.webp',
     thumbnailAlt: 'SaaS Dashboard template preview',
     demoUrl: 'https://saas-dashboard-demo.kurtmorales.com',
     sourceUrl: 'https://github.com/Kacmnetworkk/saas-dashboard',
@@ -288,7 +337,7 @@ export const templates: SiteTemplate[] = [
     title: 'Ecommerce Starter',
     description: 'Clean e-commerce starter with product grid, cart, and checkout flow.',
     tech: 'Next.js / Stripe',
-    thumbnail: '/template-previews/ecommerce-starter.png',
+    thumbnail: '/template-previews/ecommerce-starter.webp',
     thumbnailAlt: 'Ecommerce Starter template preview',
     demoUrl: 'https://ecommerce-starter-demo.kurtmorales.com',
     sourceUrl: 'https://github.com/Kacmnetworkk/ecommerce-starter',
@@ -301,7 +350,7 @@ export const templates: SiteTemplate[] = [
     title: 'Portfolio Minimal',
     description: 'Minimal portfolio template for creatives with smooth animations.',
     tech: 'React / Tailwind',
-    thumbnail: '/template-previews/portfolio-minimal.png',
+    thumbnail: '/template-previews/portfolio-minimal.webp',
     thumbnailAlt: 'Portfolio Minimal template preview',
     demoUrl: 'https://portfolio-minimal-demo.kurtmorales.com',
     sourceUrl: 'https://github.com/Kacmnetworkk/portfolio-minimal',
@@ -315,7 +364,7 @@ export const templates: SiteTemplate[] = [
     description:
       'AI-assisted password security template with generator flows, encrypted vault patterns, QR tools, and master-password strength checks.',
     tech: 'React / Vite / Gemini',
-    thumbnail: '/template-previews/securepass.png',
+    thumbnail: '/template-previews/securepass.webp',
     thumbnailAlt: 'SecurePass template preview',
     demoUrl: 'https://securepass.ravfia.online/',
     sourceUrl: 'https://github.com/Kacmnetworkk/SecurePass',
@@ -329,7 +378,7 @@ export const templates: SiteTemplate[] = [
     description:
       'Clean, responsive portfolio template for freelancers and creatives. Built with semantic HTML, CSS, and vanilla JS — ready for Cloudflare Pages deploy.',
     tech: 'HTML / CSS / JS',
-    thumbnail: '/template-previews/portfolio-theme.png',
+    thumbnail: '/template-previews/portfolio-theme.webp',
     thumbnailAlt: 'Portfolio Theme template preview',
     sourceUrl: 'https://github.com/kurtmorales-tech/km-portfolio-themed',
     tags: ['Portfolio', 'Static', 'Freelance'],

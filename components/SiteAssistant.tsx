@@ -13,7 +13,7 @@ export function SiteAssistant() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-5 right-5 z-[90] flex flex-col items-end gap-3 sm:bottom-8 sm:right-8">
+    <div className="fixed bottom-5 right-5 z-[90] hidden flex-col items-end gap-3 sm:bottom-8 sm:right-8 sm:flex">
       {open && (
         <section
           aria-label="KM project assistant"
@@ -21,13 +21,13 @@ export function SiteAssistant() {
         >
           <div className="mb-4 flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="relative inline-flex h-10 w-10 items-center justify-center bg-brand text-xs font-black text-white">
+              <span className="relative inline-flex h-10 w-10 items-center justify-center bg-brand text-xs font-black text-[#13110f]">
                 KM
                 <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-[var(--km-surface)] bg-emerald-500" />
               </span>
               <div>
-                <p className="text-[9px] font-black uppercase tracking-[0.16em] km-text-soft">
-                  KM automated assistant
+                <p className="text-[9px] font-black uppercase tracking-[0.16em] km-text-muted">
+                  KM project assistant
                 </p>
                 <p className="text-sm font-bold km-text-strong">Plan your project</p>
               </div>
@@ -63,14 +63,13 @@ export function SiteAssistant() {
           type="button"
           onClick={() => setOpen(true)}
           className="group flex items-center gap-3 border border-brand/30 bg-[var(--km-surface)] px-4 py-3 shadow-[0_16px_44px_rgba(19,17,15,0.22)] transition hover:-translate-y-1 hover:border-brand"
-          aria-label="Open KM automated project assistant"
         >
-          <span className="relative inline-flex h-10 w-10 items-center justify-center bg-brand text-xs font-black text-white">
+          <span className="relative inline-flex h-10 w-10 items-center justify-center bg-brand text-xs font-black text-[#13110f]">
             KM
             <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-[var(--km-surface)] bg-emerald-500" />
           </span>
           <span className="text-left">
-            <span className="block text-[9px] font-black uppercase tracking-[0.16em] km-text-soft">
+            <span className="block text-[9px] font-black uppercase tracking-[0.16em] km-text-muted">
               Need a restaurant site?
             </span>
             <span className="mt-1 block text-sm font-bold km-text-strong group-hover:text-brand">

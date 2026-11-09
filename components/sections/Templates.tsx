@@ -22,10 +22,10 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
             <div
               key={template.id}
               className="reveal group relative km-panel overflow-hidden card-lift"
-              style={{ transitionDelay: `${index * 80}ms` }}
+              style={{ animationDelay: `${index * 80}ms` }}
             >
               {template.featured && (
-                <span className="absolute top-4 right-4 z-10 font-mono text-[9px] font-black uppercase tracking-widest bg-brand text-white px-3 py-1.5">
+                <span className="absolute top-4 right-4 z-10 font-mono text-[9px] font-black uppercase tracking-widest bg-[#13110f] text-white px-3 py-1.5">
                   Featured
                 </span>
               )}
@@ -40,10 +40,10 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
               </div>
               <div className="p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-[9px] font-black uppercase tracking-widest km-text-muted bg-[var(--km-surface-muted)] px-3 py-1.5">
+                  <span className="font-mono text-[9px] font-black uppercase tracking-widest text-[var(--km-text)] bg-[var(--km-surface-muted)] px-3 py-1.5">
                     {template.tech}
                   </span>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-brand/70">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-[#a8400e]">
                     {template.price === 0 ? 'Free' : `$${template.price}`}
                   </span>
                 </div>
@@ -59,7 +59,7 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
                       href={template.demoUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[10px] font-black uppercase tracking-widest text-brand hover:text-brand-dark transition-colors duration-300 flex items-center gap-2"
+                      className="text-[10px] font-black uppercase tracking-widest text-[#a8400e] hover:text-[#8a3410] transition-colors duration-300 flex items-center gap-2"
                     >
                       Live Demo <span aria-hidden>→</span>
                     </a>

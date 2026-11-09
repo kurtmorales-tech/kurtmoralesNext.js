@@ -20,7 +20,7 @@ export function Footprint() {
               target="_blank"
               rel="noreferrer"
               className="reveal flex flex-col items-center justify-center p-8 km-panel group card-lift text-center"
-              style={{ transitionDelay: `${index * 60}ms` }}
+              style={{ animationDelay: `${index * 60}ms` }}
             >
               <div className="mb-5 km-text-soft group-hover:text-brand transition-all duration-300 group-hover:scale-110">
                 ●

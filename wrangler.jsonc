@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "km-web-design",
+  "compatibility_date": "2026-11-09",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    {
+      "pattern": "kmwebdesign.xyz",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.kmwebdesign.xyz",
+      "custom_domain": true
+    }
+  ]
+}

@@ -27,7 +27,7 @@ export function Skills() {
               <span
                 key={skill}
                 className="px-4 py-2 km-panel km-text-muted font-bold text-[10px] uppercase tracking-widest transition-all duration-300 hover:bg-brand hover:text-white hover:border-brand hover:-translate-y-0.5 cursor-default"
-                style={{ transitionDelay: `${index * 30}ms` }}
+                style={{ animationDelay: `${index * 30}ms` }}
               >
                 {skill}
               </span>

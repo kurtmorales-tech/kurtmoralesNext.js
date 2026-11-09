@@ -21,7 +21,7 @@ export function Process() {
             <article
               key={step.title}
               className="reveal km-panel p-8 card-lift relative overflow-hidden"
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <span className="text-[10px] font-black uppercase tracking-widest text-brand/70">
                 {step.num}

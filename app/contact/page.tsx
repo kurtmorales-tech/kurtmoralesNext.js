@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { ContactForm } from './ContactForm';
 
-export const metadata: Metadata = {
-  title: 'Contact KM Web Design',
+export const metadata: Metadata = pageMetadata({
+  title: 'Contact',
   description:
-    'Tell KM Web Design about your restaurant, current website, and goals. We build custom restaurant websites in Las Vegas and beyond.',
-};
+    'Tell KM Web Design about your restaurant, current website, and goals. Custom restaurant websites in Las Vegas, starting at $299.',
+  path: '/contact',
+});
 
 const contactItems = [
   { label: 'Email', value: 'hello@kmwebdesign.xyz', href: 'mailto:hello@kmwebdesign.xyz' },
@@ -28,15 +30,15 @@ export default function ContactPage() {
             </span>
             <h1
               className="text-4xl md:text-6xl font-display font-medium leading-tight text-brand mb-8 reveal"
-              style={{ transitionDelay: '100ms' }}
+              style={{ animationDelay: '100ms' }}
             >
               Let&apos;s build something great.
             </h1>
-            <p className="km-text-muted leading-relaxed mb-12 reveal" style={{ transitionDelay: '200ms' }}>
+            <p className="km-text-muted leading-relaxed mb-12 reveal" style={{ animationDelay: '200ms' }}>
               Tell us about your restaurant, your current website, and the guest action you want
               to improve. We&apos;ll get back to you within one business day.
             </p>
-            <ul className="space-y-6 reveal" style={{ transitionDelay: '300ms' }}>
+            <ul className="space-y-6 reveal" style={{ animationDelay: '300ms' }}>
               {contactItems.map((item) => (
                 <li key={item.label} className="group flex items-center gap-4">
                   <span className="text-[9px] font-black uppercase tracking-widest km-text-soft w-16 shrink-0">

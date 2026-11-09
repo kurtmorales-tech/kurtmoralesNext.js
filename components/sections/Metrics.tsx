@@ -9,7 +9,7 @@ export function Metrics() {
             <div
               key={metric.label}
               className="reveal text-center md:text-left group relative"
-              style={{ transitionDelay: `${index * 120}ms` }}
+              style={{ animationDelay: `${index * 120}ms` }}
             >
               <div className="relative">
                 <div className="text-4xl md:text-5xl font-display font-medium text-brand mb-3 counter tracking-tight">

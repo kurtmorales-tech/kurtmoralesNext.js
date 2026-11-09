@@ -36,8 +36,8 @@
     --km-border-strong: rgba(132, 79, 59, 0.36);
     --km-text: #3f3a35;
     --km-text-strong: #13110f;
-    --km-muted: #6f6860;
-    --km-muted-soft: #958c82;
+    --km-muted: #5b544d;
+    --km-muted-soft: #6b645c;
     --km-panel-top: rgba(247, 242, 236, 0.94);
     --km-panel-bottom: rgba(235, 225, 215, 0.86);
     --km-pill-bg: rgba(247, 242, 236, 0.72);
@@ -125,39 +125,46 @@
 }
 
 @layer components {
-  /* Scroll-reveal (activated by the <Reveal /> component) */
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition:
-      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Scroll-reveal, done in CSS so content never waits on JavaScript. */
+  @keyframes km-reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
-  .reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes km-reveal-left {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes km-reveal-right {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .reveal {
+    animation: km-reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .reveal-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition:
-      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal-left.revealed {
-    opacity: 1;
-    transform: translateX(0);
+    animation: km-reveal-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .reveal-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition:
-      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal-right.revealed {
-    opacity: 1;
-    transform: translateX(0);
+    animation: km-reveal-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .mesh-gradient {
@@ -480,6 +487,7 @@
       opacity: 1;
       transform: none;
       transition: none;
+      animation: none;
     }
     .card-lift,
     .live-card,

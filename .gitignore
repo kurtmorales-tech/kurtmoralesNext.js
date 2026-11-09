@@ -17,6 +17,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# cloudflare
+/.wrangler/
+
 # env files
 .env*.local
 
