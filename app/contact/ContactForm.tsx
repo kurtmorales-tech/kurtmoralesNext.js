@@ -3,16 +3,34 @@
 import { useState, type FormEvent } from 'react';
 
 /**
- * Contact form UI. There is no backend in this build, so submit does
- * not send anything — it offers a pre-filled mailto: fallback to
- * hello@kmwebdesign.xyz instead. Wire `handleSubmit` to an API route,
- * form service, or CRM endpoint to make it live.
+ * Contact form UI.
+ *
+ * There is no form backend yet, so submit builds a pre-filled email to
+ * hello@kmwebdesign.xyz and hands it to the visitor's mail client. Replace
+ * `handleSubmit` with a POST to an API route, form service, or CRM when a
+ * backend is available.
  */
 export function ContactForm() {
   const [sent, setSent] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const project = String(data.get('project') || 'Restaurant website');
+    const subject = `Project inquiry — ${project}`;
+    const body = [
+      `Name: ${data.get('name') || ''}`,
+      `Email: ${data.get('email') || ''}`,
+      `Project: ${project}`,
+      `Budget: ${data.get('budget') || 'Not specified'}`,
+      '',
+      String(data.get('message') || ''),
+    ].join('\n');
+
+    window.location.href = `mailto:hello@kmwebdesign.xyz?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
     setSent(true);
   }
 
@@ -75,11 +93,12 @@ export function ContactForm() {
         </label>
         {sent && (
           <div className="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">
-            Thanks — this preview form isn&apos;t connected to a backend yet. Please email{' '}
+            Your email app should open with these details filled in — send it and we&apos;ll reply
+            within one business day. If nothing opened, email{' '}
             <a className="font-bold text-brand underline" href="mailto:hello@kmwebdesign.xyz">
               hello@kmwebdesign.xyz
-            </a>{' '}
-            and we&apos;ll get back to you within one business day.
+            </a>
+            .
           </div>
         )}
         <button type="submit" className="km-button km-button-primary w-full">

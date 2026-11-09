@@ -70,10 +70,11 @@ The design system (colors `--km-*`, fonts, `.km-button`, `.km-pill`,
 
 ## Notes
 
-- **Contact form:** the form on `/contact` is UI only — there is no
-  backend in this build. On submit it points visitors to
-  `hello@kmwebdesign.xyz`. To make it live, wire
-  `app/contact/ContactForm.tsx` to an API route, a form service, or a CRM.
+- **Contact form:** the form on `/contact` has no backend yet. On submit it
+  builds a pre-filled `mailto:` to `hello@kmwebdesign.xyz` and opens the
+  visitor's mail client, so no enquiry is silently lost. To capture leads
+  server-side, wire `app/contact/ContactForm.tsx` to an API route, a form
+  service, or a CRM.
 - **Blog posts** are listed from `lib/data.ts` (titles, excerpts, dates,
   tags carried over from the original site's fallback data). Individual
   post pages are not part of this rebuild.
