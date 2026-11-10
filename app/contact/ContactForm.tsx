@@ -2,36 +2,54 @@
 
 import { useState, type FormEvent } from 'react';
 
+type Status = 'idle' | 'sending' | 'sent' | 'error';
+
 /**
- * Contact form UI.
- *
- * There is no form backend yet, so submit builds a pre-filled email to
- * hello@kmwebdesign.xyz and hands it to the visitor's mail client. Replace
- * `handleSubmit` with a POST to an API route, form service, or CRM when a
- * backend is available.
+ * Contact form. POSTs to the Worker at /api/contact, which validates the
+ * fields and emails the lead to the studio inbox. If the request fails the
+ * visitor gets a mailto fallback so the enquiry is never lost.
  */
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const [error, setError] = useState('');
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
 
-    const data = new FormData(event.currentTarget);
-    const project = String(data.get('project') || 'Restaurant website');
-    const subject = `Project inquiry — ${project}`;
-    const body = [
-      `Name: ${data.get('name') || ''}`,
-      `Email: ${data.get('email') || ''}`,
-      `Project: ${project}`,
-      `Budget: ${data.get('budget') || 'Not specified'}`,
-      '',
-      String(data.get('message') || ''),
-    ].join('\n');
+    setStatus('sending');
+    setError('');
 
-    window.location.href = `mailto:hello@kmwebdesign.xyz?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          project: data.get('project'),
+          budget: data.get('budget'),
+          message: data.get('message'),
+          company: data.get('company'),
+        }),
+      });
+
+      const result = (await response.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Something went wrong. Please try again.');
+      }
+
+      form.reset();
+      setStatus('sent');
+    } catch (err) {
+      setStatus('error');
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    }
   }
 
   const inputClass =
@@ -44,6 +62,14 @@ export function ContactForm() {
       <div className="absolute top-0 left-0 w-12 h-[2px] bg-brand" />
       <div className="absolute top-0 left-0 w-[2px] h-12 bg-brand" />
       <form className="space-y-6" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <div className="grid md:grid-cols-2 gap-6">
           <label>
             <span className={labelClass}>Name *</span>
@@ -91,18 +117,31 @@ export function ContactForm() {
             placeholder="Describe your project, goals, and timeline..."
           />
         </label>
-        {sent && (
-          <div className="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">
-            Your email app should open with these details filled in — send it and we&apos;ll reply
-            within one business day. If nothing opened, email{' '}
-            <a className="font-bold text-brand underline" href="mailto:hello@kmwebdesign.xyz">
-              hello@kmwebdesign.xyz
-            </a>
-            .
-          </div>
-        )}
-        <button type="submit" className="km-button km-button-primary w-full">
-          Send Message <span aria-hidden>→</span>
+
+        <div aria-live="polite">
+          {status === 'sent' && (
+            <div className="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">
+              Thanks — your message is in. We&apos;ll reply within one business day.
+            </div>
+          )}
+          {status === 'error' && (
+            <div className="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">
+              {error} You can also email{' '}
+              <a className="font-bold text-brand underline" href="mailto:hello@kmwebdesign.xyz">
+                hello@kmwebdesign.xyz
+              </a>
+              .
+            </div>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          className="km-button km-button-primary w-full disabled:cursor-wait disabled:opacity-70"
+          disabled={status === 'sending'}
+        >
+          {status === 'sending' ? 'Sending…' : 'Send Message'}{' '}
+          <span aria-hidden>→</span>
         </button>
       </form>
     </div>

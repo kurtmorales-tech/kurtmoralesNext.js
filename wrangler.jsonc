@@ -1,11 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "km-web-design",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-11-09",
   "assets": {
     "directory": "./out",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "kurtmorales733@gmail.com"
+    }
+  ],
   "routes": [
     {
       "pattern": "kmwebdesign.xyz",

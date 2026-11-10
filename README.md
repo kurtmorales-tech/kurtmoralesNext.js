@@ -21,12 +21,13 @@ npm run deploy   # build + deploy to Cloudflare Workers
 
 ## Deployment
 
-The site is a fully static export (`output: 'export'` in
-`next.config.ts`) served by Cloudflare Workers static assets, configured
-in `wrangler.jsonc`. `npm run deploy` builds and uploads `./out`, then
-attaches the `kmwebdesign.xyz` and `www.kmwebdesign.xyz` custom domains.
+The site is a static export (`output: 'export'` in `next.config.ts`) served by
+Cloudflare Workers static assets, with a small Worker in `worker/index.ts` that
+handles `POST /api/contact`. `npm run deploy` builds `./out`, bundles the
+Worker, uploads both, and attaches the `kmwebdesign.xyz` and
+`www.kmwebdesign.xyz` custom domains.
 
-There is no server runtime: every route is prerendered HTML. `app/sitemap.ts`
+Every page is prerendered HTML; the Worker only runs for `/api/*`. `app/sitemap.ts`
 and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt` at build time.
 
 ## Routes
@@ -49,6 +50,8 @@ components/
   Footer.tsx
   SiteAssistant.tsx   Corner "Plan your project" card
   sections/           One component per homepage section
+worker/
+  index.ts            POST /api/contact — validates and emails leads
 lib/
   data.ts             ALL site content lives here
   seo.ts              Per-page canonical + social metadata helper
@@ -70,11 +73,12 @@ The design system (colors `--km-*`, fonts, `.km-button`, `.km-pill`,
 
 ## Notes
 
-- **Contact form:** the form on `/contact` has no backend yet. On submit it
-  builds a pre-filled `mailto:` to `hello@kmwebdesign.xyz` and opens the
-  visitor's mail client, so no enquiry is silently lost. To capture leads
-  server-side, wire `app/contact/ContactForm.tsx` to an API route, a form
-  service, or a CRM.
+- **Contact form:** `POST /api/contact` is handled by `worker/index.ts`, which
+  validates the fields and emails the lead through the Cloudflare Email Service
+  `send_email` binding configured in `wrangler.jsonc`. It sends to the verified
+  destination address on that binding. To change the inbox, update
+  `destination_address` in `wrangler.jsonc` and the `to:` value in
+  `worker/index.ts`.
 - **Blog posts** are listed from `lib/data.ts` (titles, excerpts, dates,
   tags carried over from the original site's fallback data). Individual
   post pages are not part of this rebuild.
