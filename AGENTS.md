@@ -16,10 +16,16 @@ prerendered HTML at build time.
 
 ## Non-negotiables
 
-1. **Every portfolio item is real.** No invented clients, projects, metrics,
-   testimonials, or "results". If a number is not sourced, it does not ship. The
-   site deliberately distinguishes *live client work* from *design concepts* from
-   *templates* — see `GLOSSARY.md`. Do not blur those three.
+1. **Every portfolio item is Kurt's own work.** The client sites, the platforms
+   and apps he built, the restaurant design concepts, and the templates were all
+   made by this studio. The `type` label in `lib/data.ts` (`Client Website`,
+   `Platform`, `Web App`, `Concept`, `Template`) says what *kind* of project it
+   is — it is never a caveat about whether the work is real, and must never be
+   written as one. See `GLOSSARY.md`.
+
+   The only thing that may not be invented is an **outcome**: no fabricated
+   traffic, conversion, or revenue figures, and no testimonials that a client did
+   not give. If there is no measured result, describe what was built and how.
 2. **`$299` has one home:** `site.startingPrice` in `lib/data.ts`. Never hardcode
    the price in a component or in metadata. Growth and Custom packages are
    "Custom quote" until real numbers exist.

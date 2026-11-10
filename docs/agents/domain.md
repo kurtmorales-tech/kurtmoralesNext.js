@@ -39,8 +39,9 @@ Single-context repo:
 
 When output names a domain concept — in an issue title, a refactor proposal, a
 test name, or customer-facing copy — use the term as defined in `GLOSSARY.md`.
-Do not drift to the synonyms it explicitly avoids (notably: never apply
-"results", "ROI", or "our client" to a concept or a template).
+Do not drift to the synonyms it explicitly avoids (notably: never attach invented
+results to a project, and never describe a concept as work-for-hire for a client
+who does not exist).
 
 If the concept you need isn't in the glossary yet, that's a signal: either you're
 inventing language the project doesn't use (reconsider) or there's a real gap
