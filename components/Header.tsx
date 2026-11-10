@@ -13,6 +13,7 @@ const primaryNavItems: NavItem[] = [
   { href: '/#services', label: 'Services', icon: 'M4 6h16M4 12h10M4 18h16' },
   { href: '/projects', label: 'Projects', icon: 'M4 5h16v14H4V5Zm3 4h10M7 13h6' },
   { href: '/blog', label: 'Blog', icon: 'M6 4h12v16H6V4Zm3 4h6M9 12h6M9 16h4' },
+  { href: '/book', label: 'Book', icon: 'M7 4v3m10-3v3M4 9h16M5 6h14v14H5V6Z' },
 ];
 
 // In the original these pointed at Products / Templates / Resources /

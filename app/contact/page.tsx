@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { pageMetadata } from '@/lib/seo';
 import { ContactForm } from './ContactForm';
 
@@ -37,6 +38,16 @@ export default function ContactPage() {
             <p className="km-text-muted leading-relaxed mb-12 reveal" style={{ animationDelay: '200ms' }}>
               Tell us about your restaurant, your current website, and the guest action you want
               to improve. We&apos;ll get back to you within one business day.
+            </p>
+            <p
+              className="mb-12 rounded-sm border km-border-soft p-4 text-sm km-text-muted reveal"
+              style={{ animationDelay: '250ms' }}
+            >
+              Prefer to talk it through?{' '}
+              <Link href="/book" className="font-semibold text-brand underline">
+                Book a 15-minute discovery call
+              </Link>
+              .
             </p>
             <ul className="space-y-6 reveal" style={{ animationDelay: '300ms' }}>
               {contactItems.map((item) => (

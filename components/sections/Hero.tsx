@@ -33,7 +33,7 @@ export function Hero() {
           </p>
           <div className="reveal flex flex-col gap-6" style={{ animationDelay: '300ms' }}>
             <div className="flex flex-wrap gap-4">
-              <Link href="/contact" className="km-button km-button-primary">
+              <Link href="/book" className="km-button km-button-primary">
                 Book a discovery call
               </Link>
               <a href="#projects" className="km-button km-button-secondary">

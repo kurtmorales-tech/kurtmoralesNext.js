@@ -31,7 +31,7 @@ export default function ServicesPage() {
             visitors into guests.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Link href="/contact" className="km-button km-button-primary">
+            <Link href="/book" className="km-button km-button-primary">
               Book a discovery call
             </Link>
             <Link href="/projects" className="km-button km-button-secondary">
