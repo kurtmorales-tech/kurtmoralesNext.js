@@ -2,8 +2,11 @@
  * Contact-form endpoint for the static site.
  *
  * The Worker only handles /api/* requests; every other path is served
- * straight from the static assets in ./out. Leads are emailed to the
- * verified destination configured on the EMAIL binding in wrangler.jsonc.
+ * straight from the static assets in ./out.
+ *
+ * A lead is written to the LEADS KV namespace *before* the notification
+ * email is attempted, so a mail failure can never lose an inquiry. The
+ * email then records its own outcome back onto the stored lead.
  */
 
 interface EmailAddress {
@@ -22,9 +25,34 @@ interface EmailBinding {
   }): Promise<{ messageId: string }>;
 }
 
+interface KVBinding {
+  put(key: string, value: string): Promise<void>;
+  get(key: string): Promise<string | null>;
+  list(options?: { prefix?: string; limit?: number }): Promise<{
+    keys: { name: string }[];
+    list_complete: boolean;
+    cursor?: string;
+  }>;
+}
+
 interface Env {
   EMAIL: EmailBinding;
+  LEADS: KVBinding;
   ASSETS: { fetch(request: Request): Promise<Response> };
+}
+
+interface LeadRecord {
+  id: string;
+  createdAt: string;
+  name: string;
+  email: string;
+  project: string;
+  budget: string;
+  message: string;
+  source: string;
+  country: string | null;
+  emailStatus: 'pending' | 'sent' | 'failed';
+  emailError?: string;
 }
 
 const LIMITS = { name: 120, email: 200, message: 5000 };
@@ -41,6 +69,29 @@ function json(body: unknown, status = 200): Response {
 
 function field(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
+}
+
+function leadKey(lead: LeadRecord): string {
+  // ISO-8601 first so `list({ prefix: 'lead:' })` returns newest last
+  // in lexicographic order without needing an index.
+  return `lead:${lead.createdAt}:${lead.id}`;
+}
+
+/** Persists the lead. Returns false when the write fails. */
+async function storeLead(env: Env, lead: LeadRecord): Promise<boolean> {
+  try {
+    await env.LEADS.put(leadKey(lead), JSON.stringify(lead));
+    return true;
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        event: 'lead_store_failed',
+        leadId: lead.id,
+        error: error instanceof Error ? error.message : String(error),
+      }),
+    );
+    return false;
+  }
 }
 
 export default {
@@ -85,9 +136,25 @@ export default {
       return json({ ok: false, error: 'Please enter a valid email address.' }, 400);
     }
 
+    const lead: LeadRecord = {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      name,
+      email,
+      project,
+      budget,
+      message,
+      source: 'contact-form',
+      country: (request as Request & { cf?: { country?: string } }).cf?.country ?? null,
+      emailStatus: 'pending',
+    };
+
+    const stored = await storeLead(env, lead);
+
     const text = [
       'New project inquiry from kmwebdesign.xyz',
       '',
+      `Lead ID: ${lead.id}`,
       `Name:    ${name}`,
       `Email:   ${email}`,
       `Project: ${project}`,
@@ -97,6 +164,7 @@ export default {
       message,
     ].join('\n');
 
+    let emailed = false;
     try {
       await env.EMAIL.send({
         from: { email: 'website@kmwebdesign.xyz', name: 'KM Web Design website' },
@@ -105,8 +173,33 @@ export default {
         subject: `New project inquiry — ${name}`,
         text,
       });
+      emailed = true;
+      lead.emailStatus = 'sent';
     } catch (error) {
-      console.error('Contact form send failed', error);
+      lead.emailStatus = 'failed';
+      lead.emailError = error instanceof Error ? error.message : String(error);
+      console.error(
+        JSON.stringify({
+          event: 'lead_email_failed',
+          leadId: lead.id,
+          stored,
+          error: lead.emailError,
+        }),
+      );
+    }
+
+    // Record the notification outcome so a failed send stays visible in the
+    // lead log instead of only in a transient console line.
+    if (stored) {
+      try {
+        await env.LEADS.put(leadKey(lead), JSON.stringify(lead));
+      } catch {
+        // The lead itself is already durable; a failed status update is not
+        // worth failing the request over.
+      }
+    }
+
+    if (!stored && !emailed) {
       return json(
         {
           ok: false,

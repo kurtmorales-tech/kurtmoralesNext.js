@@ -73,12 +73,21 @@ The design system (colors `--km-*`, fonts, `.km-button`, `.km-pill`,
 
 ## Notes
 
-- **Contact form:** `POST /api/contact` is handled by `worker/index.ts`, which
-  validates the fields and emails the lead through the Cloudflare Email Service
-  `send_email` binding configured in `wrangler.jsonc`. It sends to the verified
-  destination address on that binding. To change the inbox, update
-  `destination_address` in `wrangler.jsonc` and the `to:` value in
-  `worker/index.ts`.
+- **Contact form:** `POST /api/contact` is handled by `worker/index.ts`. Each
+  lead is written to the `LEADS` KV namespace **before** the notification email
+  is attempted, so a mail failure can never lose an inquiry; the outcome is
+  recorded back as `emailStatus` (`pending` / `sent` / `failed`). The email is
+  sent through the Cloudflare Email Service `send_email` binding configured in
+  `wrangler.jsonc`. To change the inbox, update `destination_address` in
+  `wrangler.jsonc` and the `to:` value in `worker/index.ts`.
+
+  Read the lead log with:
+
+  ```bash
+  npx wrangler kv key list --namespace-id 6e190b0067c045d3aaef08ad485c1cf5 --remote
+  npx wrangler kv key get "<key>" --namespace-id 6e190b0067c045d3aaef08ad485c1cf5 --remote
+  ```
+
 - **Blog posts** are listed from `lib/data.ts` (titles, excerpts, dates,
   tags carried over from the original site's fallback data). Individual
   post pages are not part of this rebuild.

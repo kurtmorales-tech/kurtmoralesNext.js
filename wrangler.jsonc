@@ -14,6 +14,17 @@
       "destination_address": "kurtmorales733@gmail.com"
     }
   ],
+  // Durable lead log. Every inquiry is written here before the email is
+  // attempted, so a mail failure can never lose a lead.
+  "kv_namespaces": [
+    {
+      "binding": "LEADS",
+      "id": "6e190b0067c045d3aaef08ad485c1cf5"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
   "routes": [
     {
       "pattern": "kmwebdesign.xyz",
