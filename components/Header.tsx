@@ -12,6 +12,7 @@ const primaryNavItems: NavItem[] = [
   { href: '/', label: 'Home', icon: 'M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3V10.5Z' },
   { href: '/#services', label: 'Services', icon: 'M4 6h16M4 12h10M4 18h16' },
   { href: '/projects', label: 'Projects', icon: 'M4 5h16v14H4V5Zm3 4h10M7 13h6' },
+  { href: '/demos', label: 'Demos', icon: 'M4 5h16v11H4V5Zm5 14h6M9 19v-3m6 3v-3' },
   { href: '/blog', label: 'Blog', icon: 'M6 4h12v16H6V4Zm3 4h6M9 12h6M9 16h4' },
   { href: '/book', label: 'Book', icon: 'M7 4v3m10-3v3M4 9h16M5 6h14v14H5V6Z' },
 ];
@@ -154,10 +155,12 @@ export function Header() {
             className="group inline-flex items-center justify-self-start gap-3 text-xl font-bold tracking-tight km-text-strong transition-colors duration-300 hover:text-brand shrink-0"
             aria-label="KM Web Design home"
           >
-            <span className="inline-flex h-3 w-3 rounded-full bg-brand/80 shadow-[0_0_0_6px_rgba(244,129,32,0.12)]" />
-            {'KM '}
-            <span className="text-brand transition-colors duration-300 group-hover:text-brand-dark">
-              Web Design
+            <span className="inline-flex h-3 w-3 shrink-0 rounded-full bg-brand/80 shadow-[0_0_0_6px_rgba(244,129,32,0.12)]" />
+            <span className="whitespace-nowrap">
+              {'KM '}
+              <span className="text-brand transition-colors duration-300 group-hover:text-brand-dark">
+                Web Design
+              </span>
             </span>
           </Link>
 

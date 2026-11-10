@@ -67,6 +67,67 @@ export const heroCapabilities: string[] = [
   'Fast Cloudflare-ready deployment',
 ];
 
+export interface DemoMenuItem {
+  name: string;
+  note?: string;
+  price: string;
+}
+
+export interface DemoMenuSection {
+  title: string;
+  kicker?: string;
+  items: DemoMenuItem[];
+}
+
+export interface DemoHours {
+  days: string;
+  hours: string;
+}
+
+/**
+ * Content for a live demo restaurant site. The demo pages under
+ * /demos/[slug] are real, working pages a client can open and scroll — the
+ * menus, hours and neighbourhoods in here are sample content for the demo.
+ */
+export interface DemoContent {
+  slug: string;
+  tagline: string;
+  bestFor: string;
+  /** Background, accent, ink — the three colours the direction is built from. */
+  palette: [string, string, string];
+  hero: {
+    kicker: string;
+    title: string;
+    emphasis: string;
+    text: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  story: {
+    kicker: string;
+    title: string;
+    paragraphs: string[];
+  };
+  menu: {
+    kicker: string;
+    title: string;
+    note: string;
+    sections: DemoMenuSection[];
+  };
+  visit: {
+    kicker: string;
+    title: string;
+    hours: DemoHours[];
+    location: string;
+    note: string;
+  };
+  close: {
+    title: string;
+    text: string;
+    cta: string;
+  };
+}
+
 export interface Concept {
   title: string;
   category: string;
@@ -74,6 +135,7 @@ export interface Concept {
   alt: string;
   summary: string;
   accent: string;
+  demo: DemoContent;
 }
 
 export const concepts: Concept[] = [
@@ -85,6 +147,76 @@ export const concepts: Concept[] = [
     summary:
       'A reservation-first experience with private dining, menu storytelling, and an elevated hospitality identity.',
     accent: 'from-[#6f251f]/80 to-[#1d1010]/20',
+    demo: {
+      slug: 'ember-vine',
+      tagline: 'Wood-fired fine dining, built around the reservation.',
+      bestFor: 'Steakhouses, tasting menus, special-occasion dining',
+      palette: ['#120d0a', '#c9622a', '#ede4d8'],
+      hero: {
+        kicker: 'Downtown Las Vegas · Wood fire',
+        title: 'Cooked over fire.',
+        emphasis: 'Poured with intent.',
+        text: 'A seasonal menu built around oak, mesquite, and the producers within a day’s drive. Dinner runs long here on purpose.',
+        primaryCta: 'Reserve a table',
+        secondaryCta: 'Read the menu',
+      },
+      story: {
+        kicker: 'The room',
+        title: 'Low light, warm stone, and a hearth at the centre.',
+        paragraphs: [
+          'The dining room was designed around one focal point: an open hearth running the length of the back wall. Every seat has a view of it. The lighting drops after eight, the room gets louder, and the pace slows down.',
+          'Menus change with what the farms send us. The format does not — three courses, a tasting option, and a wine list weighted toward Rhône varieties and older Champagne.',
+        ],
+      },
+      menu: {
+        kicker: 'Dinner',
+        title: 'Tonight we are serving',
+        note: 'Sample menu. Dishes change with the season and what the farms deliver.',
+        sections: [
+          {
+            title: 'To begin',
+            items: [
+              { name: 'Hearth bread', note: 'cultured butter, smoked salt', price: '$12' },
+              { name: 'Roasted bone marrow', note: 'parsley, lemon', price: '$18' },
+              { name: 'Little gem', note: 'aged sherry, pecorino', price: '$16' },
+            ],
+          },
+          {
+            title: 'From the fire',
+            items: [
+              { name: '45-day dry-aged ribeye', note: 'black garlic butter', price: '$68' },
+              { name: 'Juniper-brined pork chop', note: 'charred apple', price: '$42' },
+              { name: 'Coal-roasted branzino', note: 'salsa verde', price: '$44' },
+              { name: 'Ember-roasted squash', note: 'brown butter, sage', price: '$28' },
+            ],
+          },
+          {
+            title: 'To finish',
+            items: [
+              { name: 'Basque cheesecake', note: 'burnt honey', price: '$14' },
+              { name: 'Dark chocolate tart', note: 'olive oil, sea salt', price: '$15' },
+            ],
+          },
+        ],
+      },
+      visit: {
+        kicker: 'Visit',
+        title: 'Find us after dark',
+        hours: [
+          { days: 'Tuesday – Thursday', hours: '5pm – 10pm' },
+          { days: 'Friday – Saturday', hours: '5pm – 11pm' },
+          { days: 'Sunday', hours: '5pm – 9pm' },
+          { days: 'Monday', hours: 'Closed' },
+        ],
+        location: 'Downtown Las Vegas, Nevada',
+        note: 'Reservations recommended. Walk-ins at the bar.',
+      },
+      close: {
+        title: 'Save your table.',
+        text: 'Book online in under a minute. For parties of six or more, call the restaurant directly.',
+        cta: 'Reserve a table',
+      },
+    },
   },
   {
     title: 'Sol y Sabor',
@@ -94,6 +226,77 @@ export const concepts: Concept[] = [
     summary:
       'A bold mobile ordering journey designed around visual menus, catering leads, and location discovery.',
     accent: 'from-[#c5533f]/80 to-[#0b5b5d]/20',
+    demo: {
+      slug: 'sol-sabor',
+      tagline: 'Modern Mexican with ordering that works one-handed.',
+      bestFor: 'Taquerias, cantinas, fast-casual Mexican',
+      palette: ['#f7ecd9', '#e2603f', '#0b5b5d'],
+      hero: {
+        kicker: 'East Las Vegas · Open late',
+        title: 'Bold flavor.',
+        emphasis: 'No waiting.',
+        text: 'Street tacos, birria, and aguas frescas made fresh daily. Order ahead, skip the line, and pick up without the wait.',
+        primaryCta: 'Order pickup',
+        secondaryCta: 'See the menu',
+      },
+      story: {
+        kicker: 'Our kitchen',
+        title: 'Nixtamal in the morning, mesquite by noon.',
+        paragraphs: [
+          'We grind corn in house every morning. The tortillas you get at noon were nixtamalized the night before, which is why they taste like corn and not like packaging.',
+          'Salsas are made in small batches and rotated weekly. If you want the hot one, ask — it is not on the table by default.',
+        ],
+      },
+      menu: {
+        kicker: 'Menu',
+        title: 'Made to order',
+        note: 'Sample menu. Prices include tax, and there are no service fees at pickup.',
+        sections: [
+          {
+            title: 'Tacos',
+            kicker: 'Three per order',
+            items: [
+              { name: 'Al pastor', note: 'pineapple, onion, cilantro', price: '$6' },
+              { name: 'Baja fish', note: 'cabbage, crema', price: '$7' },
+              { name: 'Hongos', note: 'salsa macha, queso fresco', price: '$6' },
+              { name: 'Birria', note: 'consommé for dipping', price: '$8' },
+            ],
+          },
+          {
+            title: 'Platos',
+            items: [
+              { name: 'Birria de res', note: 'handmade tortillas', price: '$24' },
+              { name: 'Enchiladas verdes', note: 'chicken, crema', price: '$20' },
+              { name: 'Chile relleno', note: 'roasted corn, salsa roja', price: '$19' },
+            ],
+          },
+          {
+            title: 'Bebidas',
+            items: [
+              { name: 'Michelada', price: '$9' },
+              { name: 'Agua fresca del día', price: '$5' },
+              { name: 'Mezcal old fashioned', price: '$14' },
+            ],
+          },
+        ],
+      },
+      visit: {
+        kicker: 'Find us',
+        title: 'Two blocks off the boulevard',
+        hours: [
+          { days: 'Monday – Thursday', hours: '11am – 10pm' },
+          { days: 'Friday – Saturday', hours: '11am – 12am' },
+          { days: 'Sunday', hours: '11am – 9pm' },
+        ],
+        location: 'East Las Vegas, Nevada',
+        note: 'Pickup window on the east side of the building. Catering needs 48 hours.',
+      },
+      close: {
+        title: 'Skip the line tonight.',
+        text: 'Order online for pickup, or walk in and eat at the counter.',
+        cta: 'Start an order',
+      },
+    },
   },
   {
     title: 'Desert Bloom Coffee',
@@ -103,6 +306,75 @@ export const concepts: Concept[] = [
     summary:
       'A warm neighborhood cafe presence with order-ahead, directions, hours, and catering paths.',
     accent: 'from-[#6d7350]/80 to-[#a57855]/20',
+    demo: {
+      slug: 'desert-bloom',
+      tagline: 'A neighbourhood coffee bar with a menu that loads before you reach the counter.',
+      bestFor: 'Cafés, bakeries, coffee bars',
+      palette: ['#f6efe4', '#7a8b5a', '#2f2a24'],
+      hero: {
+        kicker: 'Summerlin · Coffee and bakery',
+        title: 'Coffee worth',
+        emphasis: 'walking over for.',
+        text: 'Single-origin espresso, a rotating bakery case, and a patio that catches the morning sun. Order ahead and it will be waiting on the counter.',
+        primaryCta: 'Order ahead',
+        secondaryCta: 'See today’s menu',
+      },
+      story: {
+        kicker: 'The bar',
+        title: 'Small menu, made properly.',
+        paragraphs: [
+          'One espresso machine, one grinder for filter, and a bakery case that changes daily. We would rather do six things well than thirty things quickly.',
+          'Beans are roasted nearby and rested four days before they hit the hopper. If you want to know what is on bar, ask — the team tastes it every morning.',
+        ],
+      },
+      menu: {
+        kicker: 'The counter',
+        title: 'On the board today',
+        note: 'Sample menu. The bakery rotates daily and sells out most mornings.',
+        sections: [
+          {
+            title: 'Espresso',
+            items: [
+              { name: 'Cortado', price: '$4.50' },
+              { name: 'Flat white', price: '$5' },
+              { name: 'Cold brew', note: '18-hour steep', price: '$5.50' },
+              { name: 'Batch filter', note: 'bottomless', price: '$3.50' },
+            ],
+          },
+          {
+            title: 'Not coffee',
+            items: [
+              { name: 'Matcha', note: 'oat milk', price: '$6' },
+              { name: 'Hojicha latte', price: '$6' },
+              { name: 'Desert bloom tonic', note: 'prickly pear, citrus', price: '$6.50' },
+            ],
+          },
+          {
+            title: 'Bakery',
+            items: [
+              { name: 'Cardamom bun', price: '$5' },
+              { name: 'Date and walnut loaf', price: '$5.50' },
+              { name: 'Savory galette', price: '$7' },
+            ],
+          },
+        ],
+      },
+      visit: {
+        kicker: 'Visit',
+        title: 'Morning light, all year',
+        hours: [
+          { days: 'Every day', hours: '6:30am – 4pm' },
+          { days: 'Bakery', hours: 'Until sold out' },
+        ],
+        location: 'Summerlin, Las Vegas',
+        note: 'Street parking on the north side. Dogs welcome on the patio.',
+      },
+      close: {
+        title: 'Your order, ready when you are.',
+        text: 'Order ahead for pickup, or come in and stay a while.',
+        cta: 'Order ahead',
+      },
+    },
   },
 ];
 

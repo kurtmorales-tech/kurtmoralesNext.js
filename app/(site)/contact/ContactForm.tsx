@@ -1,6 +1,18 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import Link from 'next/link';
+import { useEffect, useState, type FormEvent } from 'react';
+
+/**
+ * Demo directions a visitor can arrive with (?style=ember-vine). Kept here
+ * rather than imported from lib/data.ts so the whole content file does not
+ * end up in the contact page bundle. Slugs match concepts[].demo.slug.
+ */
+const demoDirections: Record<string, string> = {
+  'ember-vine': 'Ember & Vine',
+  'sol-sabor': 'Sol y Sabor',
+  'desert-bloom': 'Desert Bloom Coffee',
+};
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -12,6 +24,21 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [selectedStyle, setSelectedStyle] = useState<{ slug: string; title: string } | null>(null);
+
+  // A visitor arriving from a live demo ("Choose this direction") gets the
+  // direction named in the message, so the enquiry carries its own context.
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('style');
+    if (!slug) return;
+
+    const title = demoDirections[slug];
+    if (!title) return;
+
+    setSelectedStyle({ slug, title });
+    setMessage((current) => current || `I'd like the ${title} direction from the live demos.\n\n`);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,6 +72,8 @@ export function ContactForm() {
       }
 
       form.reset();
+      setMessage('');
+      setSelectedStyle(null);
       setStatus('sent');
     } catch (err) {
       setStatus('error');
@@ -62,6 +91,19 @@ export function ContactForm() {
       <div className="absolute top-0 left-0 w-12 h-[2px] bg-brand" />
       <div className="absolute top-0 left-0 w-[2px] h-12 bg-brand" />
       <form className="space-y-6" onSubmit={handleSubmit}>
+        {selectedStyle && (
+          <div className="flex flex-wrap items-center justify-between gap-2 border border-brand/40 bg-brand/10 p-4 text-sm km-text-strong">
+            <span>
+              Direction selected: <strong>{selectedStyle.title}</strong>
+            </span>
+            <Link
+              href={`/demos/${selectedStyle.slug}`}
+              className="font-bold underline underline-offset-2"
+            >
+              Open the demo again
+            </Link>
+          </div>
+        )}
         <input
           type="text"
           name="company"
@@ -113,6 +155,8 @@ export function ContactForm() {
             name="message"
             rows={5}
             required
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
             className={`${inputClass} resize-none`}
             placeholder="Describe your project, goals, and timeline..."
           />

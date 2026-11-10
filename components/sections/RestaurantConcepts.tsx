@@ -29,9 +29,11 @@ export function RestaurantConcepts() {
 
         <div className="grid gap-6 lg:grid-cols-12">
           {concepts.map((concept, index) => (
-            <article
+            <Link
               key={concept.title}
-              className={`group reveal km-panel live-card overflow-hidden ${
+              href={`/demos/${concept.demo.slug}`}
+              aria-label={`Open the ${concept.title} live demo`}
+              className={`group reveal km-panel live-card block overflow-hidden ${
                 index === 0 ? 'lg:col-span-12' : 'lg:col-span-6'
               }`}
               style={{ animationDelay: `${index * 100}ms` }}
@@ -59,16 +61,35 @@ export function RestaurantConcepts() {
                     {concept.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-6 km-text-muted">{concept.summary}</p>
+                <div>
+                  <p className="text-sm leading-6 km-text-muted">{concept.summary}</p>
+                  <span className="mt-3 inline-flex items-center gap-2 font-mono text-[9px] font-black uppercase tracking-[0.18em] text-brand">
+                    Open the live demo{' '}
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
+                </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-end gap-4 border-t km-border-soft pt-6">
-          <Link href="/contact" className="km-button km-button-primary">
-            Start your restaurant project
-          </Link>
+        <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t km-border-soft pt-6 sm:flex-row sm:items-center">
+          <p className="text-sm km-text-muted">
+            Every direction above is a working site you can open and scroll — not a screenshot.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/demos" className="km-button km-button-primary">
+              Compare the three demos
+            </Link>
+            <Link href="/contact" className="km-button km-button-secondary">
+              Start your project
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -93,9 +93,12 @@ explicitly or mail to it disappears silently.
 
 | Path | What lives there |
 | --- | --- |
-| `app/` | Routes, metadata, `sitemap.ts`, `robots.ts`, `globals.css` |
+| `app/` | `layout.tsx`, metadata routes (`sitemap.ts`, `robots.ts`), `globals.css`, 404 |
+| `app/(site)/` | Every marketing route. This group is what gets the studio header, footer and assistant |
+| `app/demos/[slug]/` | Live demo restaurant sites — deliberately outside `(site)`, so they render with no studio chrome |
+| `components/demos/` | One component per demo direction, plus the shared demo bar |
 | `components/sections/` | One component per homepage section |
-| `lib/data.ts` | **All** site content: prices, packages, projects, templates, posts |
+| `lib/data.ts` | **All** site content: prices, packages, projects, templates, posts, demo restaurant copy |
 | `lib/seo.ts` | `pageMetadata()` — canonical + Open Graph/Twitter per page |
 | `worker/index.ts` | `POST /api/contact` |
 | `wrangler.jsonc` | Worker name, assets, bindings, custom domains |
@@ -114,6 +117,13 @@ explicitly or mail to it disappears silently.
   covered the hero CTA on mobile.
 - All portfolio and template imagery must exist in `public/`; a 404 there costs
   real conversions and Lighthouse points.
+- Demo restaurant pages (`/demos/[slug]`) are `noindex, follow` on purpose and
+  stay out of `sitemap.xml`. They describe menus and hours for businesses that
+  do not exist; indexing them would put fake local businesses in search results.
+  Only the `/demos` picker is indexable.
+- The demo pages must keep their `(site)`-free chrome. Do not move them into the
+  route group or add `Header`/`Footer`/`SiteAssistant` — the whole effect is that
+  the visitor is looking at a restaurant site, not a page of the studio site.
 
 ## Agent skills
 
