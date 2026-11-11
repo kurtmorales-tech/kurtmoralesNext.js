@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { Concept } from '@/lib/data';
+import { photosFor } from '@/lib/demo-photos';
 import { DemoBar, DemoCredit } from './DemoBar';
+import { DemoGallery } from './DemoGallery';
 
 /**
  * Ember & Vine — fine dining direction.
@@ -12,6 +14,7 @@ import { DemoBar, DemoCredit } from './DemoBar';
 export function EmberVine({ concept }: { concept: Concept }) {
   const d = concept.demo;
   const [bg, accent, ink] = d.palette;
+  const photos = photosFor(d.slug);
 
   return (
     <main
@@ -111,6 +114,8 @@ export function EmberVine({ concept }: { concept: Concept }) {
           </div>
         </div>
       </section>
+
+      <DemoGallery photos={photos} containerClassName="max-w-6xl" />
 
       <section id="room" className="border-y border-[var(--ev-line)] bg-[#17100c]">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-[0.4fr_1fr] md:py-28">

@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { Concept } from '@/lib/data';
+import { photosFor } from '@/lib/demo-photos';
 import { DemoBar, DemoCredit } from './DemoBar';
+import { DemoGallery } from './DemoGallery';
 
 /**
  * Desert Bloom Coffee — neighbourhood café direction.
@@ -11,6 +13,7 @@ import { DemoBar, DemoCredit } from './DemoBar';
 export function DesertBloom({ concept }: { concept: Concept }) {
   const d = concept.demo;
   const [bg, accent, ink] = d.palette;
+  const photos = photosFor(d.slug);
 
   return (
     <main
@@ -63,7 +66,11 @@ export function DesertBloom({ concept }: { concept: Concept }) {
       </header>
 
       <section id="top" className="mx-auto max-w-5xl px-6 pb-16 pt-14 md:pb-24 md:pt-20">
-        <div className="grid items-center gap-14 md:grid-cols-[1.15fr_0.85fr]">
+        <div
+          className={`grid items-center gap-14 ${
+            photos.length === 0 ? 'md:grid-cols-[1.15fr_0.85fr]' : ''
+          }`}
+        >
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--db-accent-ink)]">
               {d.hero.kicker}
@@ -90,23 +97,27 @@ export function DesertBloom({ concept }: { concept: Concept }) {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-[19rem]">
-            <div aria-hidden className="absolute inset-0 rounded-full border border-[var(--db-line)]" />
-            <div aria-hidden className="absolute inset-[12%] rounded-full border border-[var(--db-line)]" />
-            <div aria-hidden className="absolute inset-[24%] rounded-full bg-[var(--db-accent)]/20" />
-            <div aria-hidden className="absolute inset-[38%] rounded-full bg-[var(--db-accent)]/45" />
-            <div className="absolute inset-0 grid place-items-center px-10 text-center">
-              <p className="font-display text-xl leading-tight">
-                Morning
-                <br />
-                light,
-                <br />
-                all year
-              </p>
+          {photos.length === 0 && (
+            <div className="relative mx-auto aspect-square w-full max-w-[19rem]">
+              <div aria-hidden className="absolute inset-0 rounded-full border border-[var(--db-line)]" />
+              <div aria-hidden className="absolute inset-[12%] rounded-full border border-[var(--db-line)]" />
+              <div aria-hidden className="absolute inset-[24%] rounded-full bg-[var(--db-accent)]/20" />
+              <div aria-hidden className="absolute inset-[38%] rounded-full bg-[var(--db-accent)]/45" />
+              <div className="absolute inset-0 grid place-items-center px-10 text-center">
+                <p className="font-display text-xl leading-tight">
+                  Morning
+                  <br />
+                  light,
+                  <br />
+                  all year
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
+
+      <DemoGallery photos={photos} containerClassName="max-w-5xl" />
 
       <section id="bar" className="border-y border-[var(--db-line)] bg-white/40">
         <div className="mx-auto grid max-w-5xl gap-8 px-6 py-14 md:grid-cols-[0.32fr_1fr] md:py-16">

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { concepts } from '@/lib/data';
+import { photosFor } from '@/lib/demo-photos';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -63,6 +65,14 @@ export default function DemosPage() {
             const demo = concept.demo;
             const [bg, accent, ink] = demo.palette;
             const accentInk = plateAccent(demo.slug, accent);
+            // A photo, when one exists, becomes the plate background under a
+            // scrim; without one the plate is pure palette and type.
+            const photo = photosFor(demo.slug)[0];
+            const labelColor = photo ? 'rgba(255,255,255,0.9)' : accentInk;
+            const ruleColor = photo ? 'rgba(246,239,228,0.55)' : accentInk;
+            const chipBorder = photo ? 'rgba(255,255,255,0.45)' : `${ink}33`;
+            const chipText = photo ? '#ffffff' : ink;
+            const dotBorder = photo ? 'rgba(255,255,255,0.4)' : `${ink}33`;
             return (
               <article
                 key={demo.slug}
@@ -76,29 +86,51 @@ export default function DemosPage() {
                   >
                     <div
                       className="relative flex aspect-[16/10] flex-col justify-between overflow-hidden p-7 md:p-9"
-                      style={{ backgroundColor: bg, color: ink }}
+                      style={{ backgroundColor: bg, color: photo ? '#f6efe4' : ink }}
                     >
-                      <span
-                        aria-hidden
-                        className="absolute -right-16 -top-16 h-56 w-56 rounded-full border transition-transform duration-700 group-hover:scale-110"
-                        style={{ borderColor: `${accentInk}66` }}
-                      />
-                      <span
-                        aria-hidden
-                        className="absolute -right-6 -top-6 h-28 w-28 rounded-full"
-                        style={{ backgroundColor: `${accent}22` }}
-                      />
+                      {photo ? (
+                        <>
+                          <Image
+                            src={photo.src}
+                            alt=""
+                            fill
+                            sizes="(min-width: 1024px) 560px, 100vw"
+                            className="object-cover"
+                          />
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 bg-[#0b0b0c]/60"
+                          />
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 bg-gradient-to-t from-[#0b0b0c]/85 via-transparent to-transparent"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <span
+                            aria-hidden
+                            className="absolute -right-16 -top-16 h-56 w-56 rounded-full border transition-transform duration-700 group-hover:scale-110"
+                            style={{ borderColor: `${accentInk}66` }}
+                          />
+                          <span
+                            aria-hidden
+                            className="absolute -right-6 -top-6 h-28 w-28 rounded-full"
+                            style={{ backgroundColor: `${accent}22` }}
+                          />
+                        </>
+                      )}
 
                       <div className="relative flex items-start justify-between gap-4">
                         <span
                           className="font-mono text-[9px] font-bold uppercase tracking-[0.2em]"
-                          style={{ color: accentInk }}
+                          style={{ color: labelColor }}
                         >
                           {concept.category}
                         </span>
                         <span
                           className="rounded-full border px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.14em]"
-                          style={{ borderColor: `${ink}33`, color: ink }}
+                          style={{ borderColor: chipBorder, color: chipText }}
                         >
                           Live site
                         </span>
@@ -108,7 +140,7 @@ export default function DemosPage() {
                         <span
                           aria-hidden
                           className="mb-5 block h-px w-12"
-                          style={{ backgroundColor: accentInk }}
+                          style={{ backgroundColor: ruleColor }}
                         />
                         <p className={plateTitleClass(demo.slug)}>{concept.title}</p>
                         <p className="mt-3 max-w-xs text-sm leading-6" style={{ opacity: 0.9 }}>
@@ -122,7 +154,7 @@ export default function DemosPage() {
                             <span
                               key={color}
                               className="h-3 w-3 rounded-full border"
-                              style={{ backgroundColor: color, borderColor: `${ink}33` }}
+                              style={{ backgroundColor: color, borderColor: dotBorder }}
                             />
                           ))}
                         </span>

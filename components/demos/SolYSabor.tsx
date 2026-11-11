@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { Concept } from '@/lib/data';
+import { photosFor } from '@/lib/demo-photos';
 import { DemoBar, DemoCredit } from './DemoBar';
+import { DemoGallery } from './DemoGallery';
 
 /**
  * Sol y Sabor — modern Mexican direction.
@@ -11,6 +13,7 @@ import { DemoBar, DemoCredit } from './DemoBar';
 export function SolYSabor({ concept }: { concept: Concept }) {
   const d = concept.demo;
   const [bg, accent, ink] = d.palette;
+  const photos = photosFor(d.slug);
 
   return (
     <main
@@ -121,6 +124,8 @@ export function SolYSabor({ concept }: { concept: Concept }) {
           </div>
         </div>
       </section>
+
+      <DemoGallery photos={photos} containerClassName="max-w-6xl" />
 
       <section className="border-y-2 border-[var(--ss-ink)] bg-[var(--ss-bg)]">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 md:grid-cols-[0.35fr_1fr] md:py-16">

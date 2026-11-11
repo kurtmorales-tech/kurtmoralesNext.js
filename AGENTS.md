@@ -96,9 +96,10 @@ explicitly or mail to it disappears silently.
 | `app/` | `layout.tsx`, metadata routes (`sitemap.ts`, `robots.ts`), `globals.css`, 404 |
 | `app/(site)/` | Every marketing route. This group is what gets the studio header, footer and assistant |
 | `app/demos/[slug]/` | Live demo restaurant sites — deliberately outside `(site)`, so they render with no studio chrome |
-| `components/demos/` | One component per demo direction, plus the shared demo bar |
+| `components/demos/` | One component per demo direction, the shared demo bar, and the optional photo band |
 | `components/sections/` | One component per homepage section |
 | `lib/data.ts` | **All** site content: prices, packages, projects, templates, posts, demo restaurant copy |
+| `lib/demo-photos.ts` | Photography for the demo sites. Empty by default — see below |
 | `lib/seo.ts` | `pageMetadata()` — canonical + Open Graph/Twitter per page |
 | `worker/index.ts` | `POST /api/contact` |
 | `wrangler.jsonc` | Worker name, assets, bindings, custom domains |
@@ -124,6 +125,27 @@ explicitly or mail to it disappears silently.
 - The demo pages must keep their `(site)`-free chrome. Do not move them into the
   route group or add `Header`/`Footer`/`SiteAssistant` — the whole effect is that
   the visitor is looking at a restaurant site, not a page of the studio site.
+
+## Demo photography
+
+The demos ship with no photography, and that is a valid finished state — type
+and colour carry the identity. Photos are additive:
+
+1. Export at 1600px on the long edge, WebP, ideally under 200 KB. Static export
+   has no image optimizer, so the file you save is the file that ships.
+2. Put it in `public/demos/<slug>/`.
+3. Add `{ src, alt }` to that demo's list in `lib/demo-photos.ts`.
+4. `npm run build`.
+
+`components/demos/DemoGallery.tsx` renders nothing when a demo's list is empty,
+so an unfilled slot can never leave a hole in the page. The first photo becomes
+a wide lead image, the next two sit beside it, and the same first photo becomes
+the background of that demo's plate on `/demos`. Desert Bloom's decorative
+hero circle is a placeholder for photography and hides itself once a photo
+exists — the other two demos have non-photographic hero art and keep it.
+
+Alt text describes the photograph, not the restaurant: "Table by the window at
+dusk", not "Ember & Vine".
 
 ## Agent skills
 
