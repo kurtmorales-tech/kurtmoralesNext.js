@@ -4,6 +4,7 @@ import { FAQ } from '@/components/sections/FAQ';
 import { Footprint } from '@/components/sections/Footprint';
 import { Hero } from '@/components/sections/Hero';
 import { Metrics } from '@/components/sections/Metrics';
+import { MotionSlides } from '@/components/sections/MotionSlides';
 import { Packages } from '@/components/sections/Packages';
 import { PortfolioLab } from '@/components/sections/PortfolioLab';
 import { Process } from '@/components/sections/Process';
@@ -34,6 +35,7 @@ export default function HomePage() {
       <Templates items={templates.slice(0, 3)} />
       <Skills />
       <Footprint />
+      <MotionSlides />
       <FAQ />
       <ContactCta />
     </main>

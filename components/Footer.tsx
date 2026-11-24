@@ -23,6 +23,7 @@ const columns: Array<{ title: string; links: Array<{ label: string; href: string
       { label: 'Live demos', href: '/demos' },
       { label: 'Templates', href: '/#templates' },
       { label: 'Blog', href: '/blog' },
+      { label: 'Design & flow', href: '/design' },
     ],
   },
   {

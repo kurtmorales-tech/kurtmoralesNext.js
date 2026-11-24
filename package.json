@@ -9,6 +9,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "mermaid": "^12.3.0",
     "next": "^15",
     "react": "^19",
     "react-dom": "^19"

@@ -508,3 +508,55 @@
   }
 }
 
+
+/* Motion slides: 3D carousel */
+.motion-stage {
+  perspective: 1200px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.motion-ring {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: motion-spin 18s linear infinite;
+}
+.motion-card {
+  position: absolute;
+  inset: 0;
+  padding: 1.5rem;
+  border-width: 2px;
+  backface-visibility: hidden;
+}
+@keyframes motion-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-ring { animation: none; transform: rotateY(0deg); }
+}
+
+/* Material-inspired elevation */
+.material-elev-2 { box-shadow: 0 2px 6px rgba(18,15,31,0.08), 0 1px 2px rgba(18,15,31,0.06); }
+.material-elev-3 { box-shadow: 0 4px 12px rgba(18,15,31,0.10), 0 2px 4px rgba(18,15,31,0.06); }
+.material-elev-4 { box-shadow: 0 8px 24px rgba(18,15,31,0.12), 0 4px 8px rgba(18,15,31,0.06); }
+
+/* Material ripple (hover) */
+.km-ripple { position: relative; overflow: hidden; }
+.km-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(244,129,32,0.18) 10%, transparent 10%) center/1000% 1000%;
+  opacity: 0;
+  transition: background-size 0.5s, opacity 0.5s;
+  pointer-events: none;
+}
+.km-ripple:active::after {
+  background-size: 0% 0%;
+  opacity: 1;
+  transition: 0s;
+}
