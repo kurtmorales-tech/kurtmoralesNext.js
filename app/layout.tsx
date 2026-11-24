@@ -62,10 +62,30 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="theme-color" content="#f48120" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0d1116" media="(prefers-color-scheme: dark)" />
+        <meta name="color-scheme" content="light dark" />
+      </head>
       <body className="font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              '@id': `${site.url}/#website`,
+              url: site.url,
+              name: site.name,
+              description: site.homeDescription,
+              inLanguage: 'en-US',
+              publisher: { '@id': `${site.url}/#studio` },
+            }),
+          }}
         />
         {children}
       </body>

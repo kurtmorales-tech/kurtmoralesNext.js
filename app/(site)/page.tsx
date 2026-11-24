@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ContactCta } from '@/components/sections/ContactCta';
+import { FAQ } from '@/components/sections/FAQ';
 import { Footprint } from '@/components/sections/Footprint';
 import { Hero } from '@/components/sections/Hero';
 import { Metrics } from '@/components/sections/Metrics';
@@ -33,6 +34,7 @@ export default function HomePage() {
       <Templates items={templates.slice(0, 3)} />
       <Skills />
       <Footprint />
+      <FAQ />
       <ContactCta />
     </main>
   );

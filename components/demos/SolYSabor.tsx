@@ -16,8 +16,7 @@ export function SolYSabor({ concept }: { concept: Concept }) {
   const photos = photosFor(d.slug);
 
   return (
-    <main
-      id="main-content"
+    <main id="main-content"
       className="min-h-screen bg-[var(--ss-bg)] text-[var(--ss-ink)] antialiased"
       style={
         {

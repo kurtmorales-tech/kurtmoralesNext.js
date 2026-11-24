@@ -18,7 +18,7 @@ export function Footprint() {
               key={link.name}
               href={link.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="reveal flex flex-col items-center justify-center p-8 km-panel group card-lift text-center"
               style={{ animationDelay: `${index * 60}ms` }}
             >

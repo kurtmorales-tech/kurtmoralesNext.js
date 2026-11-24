@@ -58,7 +58,7 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
                     <a
                       href={template.demoUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="text-[10px] font-black uppercase tracking-widest text-[#a8400e] hover:text-[#8a3410] transition-colors duration-300 flex items-center gap-2"
                     >
                       Live Demo <span aria-hidden>→</span>
@@ -68,7 +68,7 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
                     <a
                       href={template.sourceUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="font-mono text-[10px] font-black uppercase tracking-widest km-text-soft hover:text-brand transition-colors duration-300"
                     >
                       Source

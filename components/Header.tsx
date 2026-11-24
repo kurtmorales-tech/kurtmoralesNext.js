@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { IconMenu, IconClose } from '@/components/icons/Icon';
 import { useEffect, useRef, useState } from 'react';
 
 const STORAGE_KEY = 'kmwebdesign-theme';
@@ -265,7 +266,7 @@ export function Header() {
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
             >
-              {mobileOpen ? '✕' : '☰'}
+              {mobileOpen ? <IconClose className="h-5 w-5" /> : <IconMenu className="h-5 w-5" />}
             </button>
           </div>
         </nav>

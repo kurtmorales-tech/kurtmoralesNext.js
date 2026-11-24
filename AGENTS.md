@@ -7,7 +7,7 @@ easy to re-break.
 ## What this is
 
 The KM Web Design marketing site: a solo Las Vegas studio that builds restaurant
-websites starting at **$299**. The site is a **static export** of a Next.js App
+websites starting at **$599**. The site is a **static export** of a Next.js App
 Router project, served by **Cloudflare Workers static assets**, plus one small
 Worker that handles the contact form.
 
@@ -26,7 +26,7 @@ prerendered HTML at build time.
    The only thing that may not be invented is an **outcome**: no fabricated
    traffic, conversion, or revenue figures, and no testimonials that a client did
    not give. If there is no measured result, describe what was built and how.
-2. **`$299` has one home:** `site.startingPrice` in `lib/data.ts`. Never hardcode
+2. **`$599` has one home:** `site.startingPrice` in `lib/data.ts`. Never hardcode
    the price in a component or in metadata. Growth and Custom packages are
    "Custom quote" until real numbers exist.
 3. **Don't add third-party scripts casually.** The site scores 99–100 on

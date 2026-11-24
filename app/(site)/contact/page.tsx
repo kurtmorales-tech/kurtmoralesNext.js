@@ -6,7 +6,7 @@ import { ContactForm } from './ContactForm';
 export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
-    'Tell KM Web Design about your restaurant, current website, and goals. Custom restaurant websites in Las Vegas, starting at $299.',
+    'Tell KM Web Design about your restaurant, current website, and goals. Custom restaurant websites in Las Vegas, starting at $599.',
   path: '/contact',
 });
 
@@ -58,7 +58,7 @@ export default function ContactPage() {
                   <a
                     href={item.href}
                     target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="text-sm font-bold km-text-strong group-hover:text-brand transition-colors link-underline"
                   >
                     {item.value}

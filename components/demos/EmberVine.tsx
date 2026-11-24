@@ -17,8 +17,7 @@ export function EmberVine({ concept }: { concept: Concept }) {
   const photos = photosFor(d.slug);
 
   return (
-    <main
-      id="main-content"
+    <main id="main-content"
       className="min-h-screen bg-[var(--ev-bg)] text-[var(--ev-ink)] antialiased"
       style={
         {

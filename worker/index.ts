@@ -67,6 +67,29 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
+function html(body: string, status = 200): Response {
+  return new Response(body, {
+    status,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+    },
+  });
+}
+
+function isHtmx(request: Request): boolean {
+  return request.headers.get('HX-Request') === 'true';
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function field(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
@@ -106,10 +129,19 @@ export default {
       return json({ ok: false, error: 'Method not allowed.' }, 405);
     }
 
-    let payload: Record<string, unknown>;
+    const contentType = request.headers.get('content-type') || '';
+    let payload: Record<string, unknown> = {};
     try {
-      payload = (await request.json()) as Record<string, unknown>;
+      if (contentType.includes('application/json')) {
+        payload = (await request.json()) as Record<string, unknown>;
+      } else {
+        const form = await request.formData();
+        payload = Object.fromEntries(form.entries()) as Record<string, unknown>;
+      }
     } catch {
+      if (isHtmx(request)) {
+        return html('<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">Invalid request body.</p>', 400);
+      }
       return json({ ok: false, error: 'Invalid request body.' }, 400);
     }
 
@@ -121,19 +153,26 @@ export default {
 
     // Honeypot: real visitors never fill this hidden field.
     if (field(payload.company)) {
+      if (isHtmx(request)) return html('<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">Thanks — your message is in.</p>');
       return json({ ok: true });
     }
 
     if (!name || !email || !message) {
-      return json({ ok: false, error: 'Name, email, and message are required.' }, 400);
+      const msg = 'Name, email, and message are required.';
+      if (isHtmx(request)) return html(`<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">${escapeHtml(msg)}</p>`, 400);
+      return json({ ok: false, error: msg }, 400);
     }
 
     if (name.length > LIMITS.name || email.length > LIMITS.email || message.length > LIMITS.message) {
-      return json({ ok: false, error: 'That message is too long. Please shorten it.' }, 400);
+      const msg = 'That message is too long. Please shorten it.';
+      if (isHtmx(request)) return html(`<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">${escapeHtml(msg)}</p>`, 400);
+      return json({ ok: false, error: msg }, 400);
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-      return json({ ok: false, error: 'Please enter a valid email address.' }, 400);
+      const msg = 'Please enter a valid email address.';
+      if (isHtmx(request)) return html(`<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">${escapeHtml(msg)}</p>`, 400);
+      return json({ ok: false, error: msg }, 400);
     }
 
     const lead: LeadRecord = {
@@ -200,15 +239,14 @@ export default {
     }
 
     if (!stored && !emailed) {
-      return json(
-        {
-          ok: false,
-          error: 'The message could not be sent. Please email hello@kmwebdesign.xyz instead.',
-        },
-        502,
-      );
+      const msg = 'The message could not be sent. Please email hello@kmwebdesign.xyz instead.';
+      if (isHtmx(request)) return html(`<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">${escapeHtml(msg)} You can also email <a class="font-bold text-brand underline" href="mailto:hello@kmwebdesign.xyz">hello@kmwebdesign.xyz</a>.</p>`, 502);
+      return json({ ok: false, error: msg }, 502);
     }
 
+    if (isHtmx(request)) {
+      return html('<p class="p-4 border border-brand/40 bg-brand/10 km-text-strong text-sm font-medium">Thanks — your message is in. We\u2019ll reply within one business day.</p>');
+    }
     return json({ ok: true });
   },
 };

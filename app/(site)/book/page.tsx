@@ -6,7 +6,7 @@ import { site } from '@/lib/data';
 export const metadata: Metadata = pageMetadata({
   title: 'Book a discovery call',
   description:
-    'Pick a time for a 15-minute intro call about your restaurant website. No cost, no pressure — just a clear next step. Projects start at $299.',
+    'Pick a time for a 15-minute intro call about your restaurant website. No cost, no pressure — just a clear next step. Projects start at $599.',
   path: '/book',
 });
 
@@ -64,7 +64,7 @@ export default function BookPage() {
               <a
                 href={SCHEDULE_URL}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="km-button km-button-primary"
               >
                 Open the calendar
@@ -101,7 +101,7 @@ export default function BookPage() {
               <a
                 href={SCHEDULE_URL}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="font-semibold text-brand underline"
               >
                 Open it in a new tab

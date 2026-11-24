@@ -3,11 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState, type FormEvent } from 'react';
 
-/**
- * Demo directions a visitor can arrive with (?style=ember-vine). Kept here
- * rather than imported from lib/data.ts so the whole content file does not
- * end up in the contact page bundle. Slugs match concepts[].demo.slug.
- */
 const demoDirections: Record<string, string> = {
   'ember-vine': 'Ember & Vine',
   'sol-sabor': 'Sol y Sabor',
@@ -16,26 +11,17 @@ const demoDirections: Record<string, string> = {
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-/**
- * Contact form. POSTs to the Worker at /api/contact, which validates the
- * fields and emails the lead to the studio inbox. If the request fails the
- * visitor gets a mailto fallback so the enquiry is never lost.
- */
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [selectedStyle, setSelectedStyle] = useState<{ slug: string; title: string } | null>(null);
 
-  // A visitor arriving from a live demo ("Choose this direction") gets the
-  // direction named in the message, so the enquiry carries its own context.
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get('style');
     if (!slug) return;
-
     const title = demoDirections[slug];
     if (!title) return;
-
     setSelectedStyle({ slug, title });
     setMessage((current) => current || `I'd like the ${title} direction from the live demos.\n\n`);
   }, []);
@@ -188,6 +174,14 @@ export function ContactForm() {
           <span aria-hidden>→</span>
         </button>
       </form>
+      <p className="mt-4 text-xs km-text-muted">
+        Prefer email?{' '}
+        <a className="font-bold text-brand underline" href="mailto:hello@kmwebdesign.xyz">
+          hello@kmwebdesign.xyz
+        </a>
+        .{' '}
+        <Link href="/privacy" className="underline">Privacy policy</Link>
+      </p>
     </div>
   );
 }

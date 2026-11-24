@@ -54,10 +54,10 @@ export const site = {
   url: 'https://kmwebdesign.xyz',
   email: 'hello@kmwebdesign.xyz',
   tagline: 'Las Vegas restaurant web design',
-  startingPrice: 299,
+  startingPrice: 599,
   homeTitle: 'Restaurant Web Design Las Vegas | KM Web Design',
   homeDescription:
-    'Custom restaurant websites in Las Vegas from $299. Fast, mobile-first builds with online menus, reservations, ordering, and local SEO.',
+    'Custom restaurant websites in Las Vegas from $599. Fast, mobile-first builds with online menus, reservations, ordering, and local SEO.',
 };
 
 export const heroCapabilities: string[] = [
@@ -556,7 +556,7 @@ export const packages: PackagePlan[] = [
   {
     title: 'Starter Website',
     desc: 'For personal brands and small service businesses that need a polished online presence.',
-    price: 299,
+    price: 599,
     items: [
       '1–3 core pages',
       'Responsive design',
@@ -835,3 +835,66 @@ export function formatDate(value: string): string {
     year: 'numeric',
   });
 }
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export const faqs: FaqItem[] = [
+  {
+    question: 'How much does a restaurant website cost?',
+    answer:
+      'A small basic website starts at $599. Growth and Custom builds (menus, ordering, reservations, dashboards) are quoted to scope. Hosting and domains are separate and billed at cost.',
+  },
+  {
+    question: 'How long does a build take?',
+    answer:
+      'A small basic site typically launches in one to two weeks. Larger builds with custom tools or integrations take three to six weeks. Timelines are agreed before work starts.',
+  },
+  {
+    question: 'Do you work with restaurants outside Las Vegas?',
+    answer:
+      'Yes. The studio is based in Las Vegas, but we build for restaurants anywhere. Meetings happen over video and email.',
+  },
+  {
+    question: 'Can I update the menu myself?',
+    answer:
+      'Yes. Sites ship with a simple content workflow so you can update menus, hours, and photos without a developer.',
+  },
+  {
+    question: 'Where is the site hosted?',
+    answer:
+      'We host across a wide variety of cloud and remote data centers (Cloudflare, AWS, GCP, Azure, and others) chosen for speed and reliability near your guests. We also support custom on-premise or bare-metal server setups for businesses that need full control.',
+  },
+  {
+    question: 'Can you set up our own server on-premise or bare metal?',
+    answer:
+      'Yes. We do custom setup of your server on-premise or on bare metal, configured for your business needs, security, and compliance. We handle provisioning, hardening, and deployment.',
+  },
+  {
+    question: 'Do you have a mobile app for restaurant owners?',
+    answer:
+      'Yes. We offer a mobile app for restaurant owners to manage menus, orders, reservations, and site content on the go.',
+  },
+  {
+    question: 'Is the site accessible and fast?',
+    answer:
+      'Every site targets WCAG 2.1 AA accessibility and Lighthouse scores of 95+ on mobile, with no heavy third-party scripts. Security is built in by design.',
+  },
+  {
+    question: 'Who owns the website?',
+    answer:
+      'You do. On final payment you receive full ownership of the code, content, and domain configuration.',
+  },
+  {
+    question: 'What if I need changes later?',
+    answer:
+      'We offer ongoing support and small-change retainers. You can also take the code to any developer.',
+  },
+  {
+    question: 'Why choose KM Web Design?',
+    answer:
+      'Win-win partnerships, trusted delivery, quality craftsmanship, and modern secure-by-design builds — tailored to your restaurant and your budget.',
+  },
+];

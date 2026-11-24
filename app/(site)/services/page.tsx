@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Services',
   description:
-    'Restaurant websites, menus & integrations, and local growth services from KM Web Design in Las Vegas. Projects start at $299.',
+    'Restaurant websites, menus & integrations, and local growth services from KM Web Design in Las Vegas. Projects start at $599.',
   path: '/services',
 });
 

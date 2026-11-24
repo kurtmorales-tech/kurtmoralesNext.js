@@ -73,7 +73,7 @@ export function PortfolioLab() {
                   key={project.id}
                   href={project.link}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="group border km-border-strong km-surface-soft p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/40"
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">

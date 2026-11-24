@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { SiteAssistant } from '@/components/SiteAssistant';
+import { CookieBanner } from '@/components/CookieBanner';
 
 /**
  * Chrome for the marketing site. Demo sites under /demos/[slug] deliberately
@@ -15,6 +16,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       {children}
       <Footer />
       <SiteAssistant />
+      <CookieBanner />
     </>
   );
 }

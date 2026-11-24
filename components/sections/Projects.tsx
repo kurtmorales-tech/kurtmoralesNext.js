@@ -1,4 +1,5 @@
 import type { Project } from '@/lib/data';
+import { IconVerified } from '@/components/icons/Icon';
 
 export function Projects({ items, heading = true }: { items: Project[]; heading?: boolean }) {
   return (
@@ -20,7 +21,7 @@ export function Projects({ items, heading = true }: { items: Project[]; heading?
               key={project.id}
               href={project.link}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="reveal group relative km-panel p-10 card-lift live-card block overflow-hidden"
               style={{ animationDelay: `${index * 80}ms` }}
             >
@@ -42,9 +43,13 @@ export function Projects({ items, heading = true }: { items: Project[]; heading?
                 <p className="km-text-muted text-sm leading-relaxed mb-8 flex-grow">
                   {project.description}
                 </p>
-                <div className="flex items-center gap-2 font-mono text-[10px] font-black uppercase tracking-widest km-text-soft group-hover:text-brand transition-all duration-300">
-                  <span>View Project</span>
-                  <span aria-hidden>→</span>
+                <div className="flex items-center justify-between gap-2 mt-2">
+                  <span className="inline-flex items-center gap-1 font-mono text-[9px] font-black uppercase tracking-widest text-brand/70">
+                    <IconVerified className="h-3.5 w-3.5" /> Verified
+                  </span>
+                  <span className="font-mono text-[10px] font-black uppercase tracking-widest km-text-soft group-hover:text-brand transition-all duration-300">
+                    View Project →
+                  </span>
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
