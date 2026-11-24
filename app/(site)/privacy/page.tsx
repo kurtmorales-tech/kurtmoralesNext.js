@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { pageMetadata } from '@/lib/seo';
 import { site } from '@/lib/data';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Privacy Policy',
@@ -98,6 +99,7 @@ export default function PrivacyPage() {
           </div>
         </div>
       </section>
+      <CtaBlock title="Questions about your data?" description="We're transparent about how we handle it." />
     </main>
   );
 }

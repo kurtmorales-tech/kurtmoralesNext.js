@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Packages } from '@/components/sections/Packages';
 import { Process } from '@/components/sections/Process';
 import { Services } from '@/components/sections/Services';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 import { site } from '@/lib/data';
 import { pageMetadata } from '@/lib/seo';
 
@@ -46,6 +47,7 @@ export default function ServicesPage() {
       <Services />
       <Process />
       <Packages />
+      <CtaBlock title="Not sure which package fits?" description="Book a free 15-minute call and we'll map the right scope." />
     </main>
   );
 }

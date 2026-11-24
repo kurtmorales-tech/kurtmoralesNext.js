@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { SiteTemplate } from '@/lib/data';
 
 export function Templates({ items }: { items: SiteTemplate[] }) {
@@ -79,6 +80,14 @@ export function Templates({ items }: { items: SiteTemplate[] }) {
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </div>
           ))}
+        </div>
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Link href="/contact" className="km-button km-button-primary">
+            Get a template customized <span aria-hidden>→</span>
+          </Link>
+          <Link href="/projects" className="km-button km-button-secondary">
+            See client work
+          </Link>
         </div>
       </div>
     </section>

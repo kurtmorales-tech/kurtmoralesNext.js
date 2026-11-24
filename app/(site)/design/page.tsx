@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import { Mermaid } from '@/components/Mermaid';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Design & Architecture',
@@ -64,6 +65,7 @@ export default function DesignPage() {
           </div>
         </div>
       </section>
+      <CtaBlock title="Want a diagram of your own system?" description="We plan and document before we build." />
     </main>
   );
 }

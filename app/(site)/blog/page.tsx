@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { formatDate, posts } from '@/lib/data';
 import { pageMetadata } from '@/lib/seo';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Restaurant Website Blog',
@@ -95,6 +96,7 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
+      <CtaBlock title="Want a site like these?" description="Let's talk about your restaurant." />
     </main>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Projects } from '@/components/sections/Projects';
 import { RestaurantConcepts } from '@/components/sections/RestaurantConcepts';
 import { Templates } from '@/components/sections/Templates';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 import { projects, templates } from '@/lib/data';
 import { pageMetadata } from '@/lib/seo';
 
@@ -33,6 +34,7 @@ export default function ProjectsPage() {
       <RestaurantConcepts />
       <Projects items={projects} />
       <Templates items={templates} />
+      <CtaBlock title="Ready to build your restaurant site?" description="Tell us about your restaurant and we'll recommend a focused next step." />
     </main>
   );
 }

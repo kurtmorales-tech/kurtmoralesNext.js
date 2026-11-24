@@ -1,4 +1,5 @@
 import type { Project } from '@/lib/data';
+import Link from 'next/link';
 import { IconVerified } from '@/components/icons/Icon';
 
 export function Projects({ items, heading = true }: { items: Project[]; heading?: boolean }) {
@@ -55,6 +56,14 @@ export function Projects({ items, heading = true }: { items: Project[]; heading?
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </a>
           ))}
+        </div>
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Link href="/contact" className="km-button km-button-primary">
+            Start your project <span aria-hidden>→</span>
+          </Link>
+          <Link href="/projects" className="km-button km-button-secondary">
+            View all work
+          </Link>
         </div>
       </div>
     </section>

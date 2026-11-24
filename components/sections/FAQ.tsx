@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { faqs } from '@/lib/data';
 
 export function FAQ({ heading = true }: { heading?: boolean }) {
@@ -30,6 +31,14 @@ export function FAQ({ heading = true }: { heading?: boolean }) {
               <p className="mt-4 km-text-muted text-sm leading-relaxed">{item.answer}</p>
             </details>
           ))}
+        </div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link href="/contact" className="km-button km-button-primary">
+            Ask us directly <span aria-hidden>→</span>
+          </Link>
+          <Link href="/book" className="km-button km-button-secondary">
+            Book a call
+          </Link>
         </div>
       </div>
     </section>

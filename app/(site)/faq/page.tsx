@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import { FAQ } from '@/components/sections/FAQ';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 import { faqs } from '@/lib/data';
 
 export const metadata: Metadata = pageMetadata({
@@ -28,6 +29,7 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <FAQ heading={false} />
+      <CtaBlock title="Still have questions?" description="We're happy to talk through your project." />
     </main>
   );
 }

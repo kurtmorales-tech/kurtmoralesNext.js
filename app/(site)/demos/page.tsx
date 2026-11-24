@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { concepts } from '@/lib/data';
 import { photosFor } from '@/lib/demo-photos';
 import { pageMetadata } from '@/lib/seo';
+import { CtaBlock } from '@/components/sections/CtaBlock';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Live restaurant website demos',
@@ -253,6 +254,7 @@ export default function DemosPage() {
           </p>
         </div>
       </section>
+      <CtaBlock title="Like what you see?" description="Pick a direction and we'll build yours." />
     </main>
   );
 }
